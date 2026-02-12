@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kanishka Singh - Product Manager & Designer</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: #1a1a1a;
+            line-height: 1.7;
+            background: #ffffff;
+            scroll-behavior: smooth;
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid #e5e5e5;
+        }
+        
+        .nav-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            letter-spacing: -0.5px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: #666;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.2s ease;
+            cursor: pointer;
+        }
+        
+        .nav-links a:hover {
+            color: #1a1a1a;
+        }
+        
+        /* Container */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 12rem 0 8rem;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            letter-spacing: -2px;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            color: #1a1a1a;
+        }
+        
+        .hero .subtitle {
+            font-size: 1.35rem;
+            color: #666;
+            font-weight: 400;
+            margin-bottom: 3rem;
+            max-width: 700px;
+            line-height: 1.6;
+        }
+        
+        .hero .cta {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: #1a1a1a;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+        }
+        
+        .hero .cta:hover {
+            background: #333;
+            transform: translateY(-2px);
+        }
+        
+        /* About Section */
+        .about {
+            padding: 6rem 0;
+            border-top: 1px solid #e5e5e5;
+        }
+        
+        .about h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            letter-spacing: -1px;
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 4rem;
+        }
+        
+        .about-text p {
+            font-size: 1.05rem;
+            color: #666;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+        
+        .skills-group {
+            margin-bottom: 2rem;
+        }
+        
+        .skills-group h3 {
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #999;
+            margin-bottom: 1rem;
+        }
+        
+        .skills-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .skills-list span {
+            font-size: 0.95rem;
+            color: #333;
+        }
+        
+        /* Projects Section */
+        .projects {
+            padding: 6rem 0;
+            border-top: 1px solid #e5e5e5;
+        }
+        
+        .section-header {
+            margin-bottom: 4rem;
+        }
+        
+        .section-header h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            letter-spacing: -1px;
+            margin-bottom: 0.75rem;
+        }
+        
+        .section-header p {
+            font-size: 1.05rem;
+            color: #666;
+            max-width: 600px;
+        }
+        
+        .project-card {
+            margin-bottom: 5rem;
+            transition: opacity 0.3s ease;
+        }
+        
+        .project-card:hover {
+            opacity: 0.85;
+        }
+        
+        .project-image {
+            width: 100%;
+            height: 500px;
+            background: #f5f5f5;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #e5e5e5;
+            overflow: hidden;
+        }
+        
+        .project-image-placeholder {
+            font-size: 4rem;
+            color: #ccc;
+            font-weight: 300;
+        }
+        
+        .project-meta {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+            font-size: 0.85rem;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 500;
+        }
+        
+        .project-card h3 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            letter-spacing: -0.5px;
+        }
+        
+        .project-card p {
+            font-size: 1.05rem;
+            color: #666;
+            line-height: 1.7;
+            max-width: 800px;
+        }
+        
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
+        
+        .project-tag {
+            padding: 0.5rem 1rem;
+            background: #f5f5f5;
+            color: #666;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        /* Contact Section */
+        .contact {
+            padding: 6rem 0 8rem;
+            border-top: 1px solid #e5e5e5;
+        }
+        
+        .contact h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            letter-spacing: -1px;
+        }
+        
+        .contact p {
+            font-size: 1.05rem;
+            color: #666;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+        }
+        
+        .contact-links {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .contact-link {
+            font-size: 1rem;
+            color: #1a1a1a;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 2px solid #1a1a1a;
+            padding-bottom: 2px;
+            transition: opacity 0.2s ease;
+        }
+        
+        .contact-link:hover {
+            opacity: 0.6;
+        }
+        
+        /* Footer */
+        footer {
+            padding: 3rem 0;
+            border-top: 1px solid #e5e5e5;
+        }
+        
+        footer p {
+            font-size: 0.9rem;
+            color: #999;
+            text-align: center;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 9rem 0 5rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero .subtitle {
+                font-size: 1.15rem;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            
+            .nav-links {
+                gap: 1.5rem;
+            }
+            
+            .nav-links a {
+                font-size: 0.9rem;
+            }
+            
+            .project-image {
+                height: 300px;
+            }
+            
+            .container {
+                padding: 0 1.5rem;
+            }
+            
+            .nav-container {
+                padding: 1.25rem 1.5rem;
+            }
+        }
+        
+        /* Smooth animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .hero, .about, .projects, .contact {
+            animation: fadeInUp 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">Kanishka Singh</div>
+            <div class="nav-links">
+                <a onclick="document.getElementById('work').scrollIntoView({behavior: 'smooth'}); return false;">Work</a>
+                <a onclick="document.getElementById('about').scrollIntoView({behavior: 'smooth'}); return false;">About</a>
+                <a onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'}); return false;">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <h1>Product Manager & Designer building experiences that matter</h1>
+            <p class="subtitle">
+                I bridge strategy and design to create products that solve real problems. Currently exploring opportunities in B2C SaaS and D2C products.
+            </p>
+            <a href="#work" onclick="document.getElementById('work').scrollIntoView({behavior: 'smooth'}); return false;" class="cta">View Selected Work</a>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="work" class="projects">
+        <div class="container">
+            <div class="section-header">
+                <h2>Selected Work</h2>
+                <p>A collection of product management and design projects</p>
+            </div>
+
+            <!-- Project 1 -->
+            <div class="project-card">
+                <div class="project-image">
+                    <div class="project-image-placeholder">📱</div>
+                </div>
+                <div class="project-meta">
+                    <span>Product Management</span>
+                    <span>2024</span>
+                </div>
+                <h3>Product Project Title</h3>
+                <p>
+                    Brief description of the problem you were solving, your approach, and the impact. Focus on the user problem, your strategic thinking, and measurable outcomes. Keep it concise but impactful.
+                </p>
+                <div class="project-tags">
+                    <span class="project-tag">Product Strategy</span>
+                    <span class="project-tag">User Research</span>
+                    <span class="project-tag">Data Analysis</span>
+                </div>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="project-card">
+                <div class="project-image">
+                    <div class="project-image-placeholder">✨</div>
+                </div>
+                <div class="project-meta">
+                    <span>Product Design</span>
+                    <span>2024</span>
+                </div>
+                <h3>Design Project Title</h3>
+                <p>
+                    Brief description highlighting the design challenge, your process, and the solution. Focus on user needs, design decisions, and how the design improved the experience.
+                </p>
+                <div class="project-tags">
+                    <span class="project-tag">UI/UX Design</span>
+                    <span class="project-tag">Figma</span>
+                    <span class="project-tag">Prototyping</span>
+                </div>
+            </div>
+
+            <!-- Project 3 -->
+            <div class="project-card">
+                <div class="project-image">
+                    <div class="project-image-placeholder">🚀</div>
+                </div>
+                <div class="project-meta">
+                    <span>Product Management</span>
+                    <span>2023</span>
+                </div>
+                <h3>Another Product Project</h3>
+                <p>
+                    Description of another PM project showcasing different aspects of your work - perhaps a feature launch, optimization work, or 0-to-1 product development.
+                </p>
+                <div class="project-tags">
+                    <span class="project-tag">MVP Development</span>
+                    <span class="project-tag">Roadmapping</span>
+                    <span class="project-tag">Metrics</span>
+                </div>
+            </div>
+
+            <!-- Project 4 -->
+            <div class="project-card">
+                <div class="project-image">
+                    <div class="project-image-placeholder">🎨</div>
+                </div>
+                <div class="project-meta">
+                    <span>Product Design</span>
+                    <span>2023</span>
+                </div>
+                <h3>Another Design Project</h3>
+                <p>
+                    Description of another design project - could be a redesign, design system work, or a complex interaction design challenge you solved.
+                </p>
+                <div class="project-tags">
+                    <span class="project-tag">Design System</span>
+                    <span class="project-tag">User Testing</span>
+                    <span class="project-tag">Interaction Design</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>About</h2>
+                    <p>
+                        I'm a Product Manager and Designer with a passion for creating products that solve real problems. My background spans both strategic product thinking and hands-on design work, allowing me to bridge the gap between user needs and business goals.
+                    </p>
+                    <p>
+                        I believe great products are born at the intersection of user empathy, business strategy, and beautiful design. Currently, I'm learning to code to better understand the full product development lifecycle.
+                    </p>
+                    <p>
+                        When I'm not working on products, you'll find me exploring new design tools, reading about consumer behavior, or working on side projects.
+                    </p>
+                </div>
+                <div class="about-skills">
+                    <div class="skills-group">
+                        <h3>Product Management</h3>
+                        <div class="skills-list">
+                            <span>Product Strategy</span>
+                            <span>User Research</span>
+                            <span>Data Analysis</span>
+                            <span>Roadmapping</span>
+                            <span>Stakeholder Management</span>
+                            <span>Agile/Scrum</span>
+                        </div>
+                    </div>
+                    
+                    <div class="skills-group">
+                        <h3>Design</h3>
+                        <div class="skills-list">
+                            <span>UI/UX Design</span>
+                            <span>Figma</span>
+                            <span>Prototyping</span>
+                            <span>User Testing</span>
+                            <span>Design Systems</span>
+                            <span>Wireframing</span>
+                        </div>
+                    </div>
+                    
+                    <div class="skills-group">
+                        <h3>Technical</h3>
+                        <div class="skills-list">
+                            <span>HTML/CSS/JavaScript</span>
+                            <span>React (Learning)</span>
+                            <span>AI Tools</span>
+                            <span>SQL</span>
+                            <span>No-Code Tools</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Let's Connect</h2>
+            <p>
+                I'm currently exploring new opportunities in product management and design. Feel free to reach out if you'd like to discuss products, collaborate, or just chat.
+            </p>
+            <div class="contact-links">
+                <a href="mailto:your.email@example.com" class="contact-link">Email</a>
+                <a href="https://linkedin.com/in/yourprofile" target="_blank" class="contact-link">LinkedIn</a>
+                <a href="https://twitter.com/yourhandle" target="_blank" class="contact-link">Twitter</a>
+                <a href="https://dribbble.com/yourprofile" target="_blank" class="contact-link">Dribbble</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>© 2025 Kanishka Singh. Designed and coded with care.</p>
+        </div>
+    </footer>
+</body>
+</html>
