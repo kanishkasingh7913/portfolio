@@ -18,8 +18,10 @@
       --soft:    #b0aea9;
       --border:  #e4e2de;
       --white:   #ffffff;
-      --accent:  #0a7c6e;
-      --accent2: #e8f4f2;
+      --blue:    #1e44d4;   /* primary blue */
+      --blue-lt: #eef1fd;   /* light blue tint */
+      --accent:  #1e44d4;
+      --accent2: #eef1fd;
       --serif:   'Instrument Serif', Georgia, serif;
       --sans:    'DM Sans', system-ui, sans-serif;
       --max:     1060px;
@@ -65,24 +67,25 @@
     .nav-links a:hover { color: var(--black); }
 
     .nav-resume {
-      padding: 0.38rem 1rem !important;
-      border: 1px solid var(--border) !important;
-      border-radius: 100px;
-      color: var(--off) !important;
-      font-weight: 500 !important;
-      transition: all 0.18s !important;
+      font-size: 0.875rem !important;
+      font-weight: 400 !important;
+      color: var(--mid) !important;
+      transition: color 0.18s, text-decoration 0.18s !important;
+      padding: 0 !important;
+      border: none !important;
+      border-radius: 0;
     }
 
     .nav-resume:hover {
-      border-color: var(--accent) !important;
-      color: var(--accent) !important;
-      background: var(--accent2);
+      color: var(--black) !important;
+      text-decoration: underline;
+      text-underline-offset: 4px;
     }
 
     /* ── HERO ─────────────────────────────────────────────── */
     .hero {
       max-width: var(--max); margin: 0 auto;
-      padding: calc(58px + 5.5rem) var(--pad) 5rem;
+      padding: calc(58px + 5rem) var(--pad) 5rem;
       opacity: 0; animation: fadeUp 0.65s 0.08s ease forwards;
     }
 
@@ -102,16 +105,16 @@
 
     .hero h1 {
       font-family: var(--serif);
-      font-size: clamp(2.4rem, 5.8vw, 4.2rem);
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
       font-weight: 400; line-height: 1.1; letter-spacing: -0.025em;
       color: var(--black); max-width: 840px; margin-bottom: 1.75rem;
     }
 
-    .hero h1 em { font-style: italic; color: var(--accent); }
+    .hero h1 em { font-style: italic; color: var(--blue); }
 
     .hero-sub {
       font-size: 1rem; font-weight: 300; color: var(--off);
-      max-width: 500px; line-height: 1.85;
+      max-width: 480px; line-height: 1.85;
     }
 
     .hero-sub a {
@@ -121,6 +124,13 @@
     }
 
     .hero-sub a:hover { border-color: var(--accent); }
+
+    /* Hero Stack Area */
+    .hero-stack-area {
+      position: relative; width: 100%; height: 500px;
+      display: flex; align-items: center; justify-content: center;
+      perspective: 1000px; z-index: 10;
+    }
 
     /* ── SHARED ───────────────────────────────────────────── */
     .wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--pad); }
@@ -140,31 +150,114 @@
     }
 
     .cards {
-      display: flex; flex-direction: column; gap: 2px;
-      border: 1px solid var(--border); border-radius: 16px;
-      overflow: hidden; background: var(--border);
+      display: flex; flex-direction: column; gap: 0;
     }
 
-    .card-row {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 2px; background: var(--border);
+    /* Full-width horizontal project card (reference style) */
+    .work-card {
+      position: sticky;
+      top: calc(80px + var(--card-index, 0) * 18px);
+      background: var(--blue); /* default: blue */
+      border: none; border-radius: 20px; overflow: hidden;
+      display: grid; grid-template-columns: 1fr 1fr; min-height: 360px;
+      text-decoration: none; color: #fff;
+      transform-origin: center top;
+      will-change: transform;
+      transition: box-shadow 0.3s;
+      margin-bottom: 1.5rem;
     }
 
-    .card {
-      background: #ffffff; display: flex; flex-direction: column;
-      text-decoration: none; color: inherit; transition: background 0.2s;
+    .work-card:hover { box-shadow: 0 12px 50px rgba(30,68,212,0.25); }
+
+    /* Black variant for second card — white text */
+    .work-card.amber {
+      background: var(--black);
+      color: #fff;
+    }
+    .work-card.amber:hover { box-shadow: 0 12px 50px rgba(0,0,0,0.25); }
+
+    /* White text overrides for black card */
+    .work-card.amber .card-title { color: #fff; }
+    .work-card.amber .work-card-desc { color: rgba(255,255,255,0.65); }
+    .work-card.amber .work-card-metric-value { color: #fff; }
+    .work-card.amber .work-card-metric-label { color: rgba(255,255,255,0.45); }
+    .work-card.amber .work-card-cta { color: rgba(255,255,255,0.5); }
+    .work-card.amber:hover .work-card-cta { color: #fff; }
+    .work-card.amber .tag {
+      background: rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.85);
+      border-color: rgba(255,255,255,0.18);
     }
 
-    .card:hover { background: #fafaf8; }
-    .card.full { grid-column: span 2; }
+    .work-card-text {
+      padding: 2.5rem 3rem; display: flex; flex-direction: column;
+      justify-content: space-between;
+    }
 
-    /* Covers */
-    .card-cover { width: 100%; aspect-ratio: 16/7; overflow: hidden; position: relative; }
-    .card.full .card-cover { aspect-ratio: 21/7; }
+    .work-card-visual {
+      margin: 1.2rem 1.2rem 1.2rem 0;
+      border-radius: 14px; overflow: hidden;
+      position: relative;
+    }
 
-    .cover-upi        { background: linear-gradient(135deg,#eef4ff,#cfe0ff); }
-    .cover-luna       { background: linear-gradient(135deg,#f3eeff,#ddd0ff); }
-    .cover-onboarding { background: linear-gradient(135deg,#eefaf3,#c4ecd8); }
+    .work-card-visual .cover-art {
+      transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .work-card:hover .work-card-visual .cover-art {
+      transform: scale(1.06);
+    }
+
+    .work-card .card-tags { margin-bottom: 1.25rem; }
+
+    /* Override tag colours inside teal card */
+    .work-card .tag {
+      background: rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.9);
+      border-color: rgba(255,255,255,0.2);
+    }
+
+    .work-card .card-title {
+      font-family: var(--serif);
+      font-size: clamp(1.2rem, 2.5vw, 1.7rem);
+      font-weight: 400; line-height: 1.25; letter-spacing: -0.015em;
+      color: #fff; margin-bottom: 1rem;
+    }
+
+    .work-card-desc {
+      font-size: 0.92rem; font-weight: 300; color: rgba(255,255,255,0.72);
+      line-height: 1.75; margin-bottom: 1.5rem;
+    }
+
+    .work-card-metrics {
+      display: flex; gap: 2rem; margin-bottom: 1.75rem;
+    }
+
+    .work-card-metric {
+      display: flex; flex-direction: column; gap: 0.2rem;
+    }
+
+    .work-card-metric-value {
+      font-size: 1.1rem; font-weight: 600; color: #fff; letter-spacing: -0.02em;
+    }
+
+    .work-card-metric-label {
+      font-size: 0.75rem; color: rgba(255,255,255,0.55); font-weight: 400;
+    }
+
+    .work-card-cta {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em;
+      text-transform: uppercase; color: rgba(255,255,255,0.6);
+      transition: color 0.2s;
+    }
+
+    .work-card:hover .work-card-cta { color: #fff; }
+
+    /* Cover panels inside cards — slightly translucent overlay */
+    .cover-upi        { background: rgba(255,255,255,0.12); }
+    .cover-luna       { background: rgba(255,255,255,0.12); }
+    .cover-onboarding { background: rgba(255,255,255,0.15); }
 
     /* UPI art */
     .cover-upi .cover-art {
@@ -218,17 +311,17 @@
 
     .onb-node {
       width: 38px; height: 38px; border-radius: 50%;
-      border: 2px solid rgba(30,120,30,0.2);
-      background: #fff; display: flex; align-items: center; justify-content: center;
+      border: 2px solid rgba(255,255,255,0.25);
+      background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center;
       font-size: 0.68rem; font-weight: 600;
-      color: rgba(30,100,30,0.45); font-family: var(--sans);
+      color: rgba(255,255,255,0.5); font-family: var(--sans);
     }
 
-    .onb-node.done  { background: rgba(26,138,48,0.1); border-color: rgba(26,138,48,0.45); color: #1a8a30; }
-    .onb-node.act   { background: #fff; border-color: #1a8a30; color: #1a8a30; box-shadow: 0 0 0 4px rgba(26,138,48,0.1); }
+    .onb-node.done  { background: rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.6); color: #fff; }
+    .onb-node.act   { background: #fff; border-color: #fff; color: var(--black); box-shadow: 0 0 0 4px rgba(255,255,255,0.15); }
 
-    .onb-edge { width: 28px; height: 2px; background: rgba(30,140,30,0.18); }
-    .onb-edge.done { background: rgba(26,138,48,0.45); }
+    .onb-edge { width: 28px; height: 2px; background: rgba(255,255,255,0.15); }
+    .onb-edge.done { background: rgba(255,255,255,0.5); }
 
     /* Card body */
     .card-info {
@@ -293,64 +386,106 @@
     .card:hover .card-cta { background: var(--accent); color: #fff; border-color: var(--accent); }
     .card:hover .card-cta-arrow { transform: translateX(3px); }
 
-    /* ── TESTIMONIALS ─────────────────────────────────────── */
     .testimonials {
       border-top: 1px solid var(--border);
       padding: 5rem 0 6rem;
+      background: #fafaf8;
       opacity: 0; animation: fadeUp 0.65s 0.32s ease forwards;
     }
 
-    .testimonials-grid {
-      display: grid; grid-template-columns: repeat(3,1fr); gap: 1.25rem;
+    .t-carousel-wrap {
+      position: relative; overflow: hidden;
+      margin-top: 1rem;
+    }
+
+    .t-carousel {
+      display: flex; transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+      width: 100%;
     }
 
     .tcard {
-      border: 1px solid var(--border); border-radius: 12px;
-      padding: 1.75rem; display: flex; flex-direction: column; gap: 1.4rem;
-      background: #fff; transition: box-shadow 0.2s;
+      min-width: 100%;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 3rem 4rem;
+      display: flex; flex-direction: column; gap: 1rem;
     }
 
-    .tcard:hover { box-shadow: 0 4px 22px rgba(0,0,0,0.055); }
+    .tcard-logo {
+      font-size: 0.74rem; font-weight: 500; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;
+    }
+
+    .tcard-logo::before {
+      content: ''; width: 4px; height: 4px; border-radius: 50%;
+      background: var(--accent); display: inline-block;
+    }
 
     .tquote {
-      font-family: var(--serif); font-size: 1rem; font-style: italic;
-      color: var(--off); line-height: 1.68; flex: 1;
+      font-family: var(--serif); font-size: clamp(1.6rem, 3vw, 2.2rem); 
+      font-weight: 400; color: var(--black);
+      line-height: 1.25; letter-spacing: -0.01em; margin-bottom: 0.5rem;
     }
 
-    .tquote::before {
-      content: '\201C'; color: var(--accent); font-size: 1.5rem;
-      line-height: 0; vertical-align: -0.35em; margin-right: 2px;
+    .tcontext {
+      font-size: 0.95rem; font-weight: 300; color: var(--off);
+      line-height: 1.85; margin-bottom: 1.5rem; max-width: 900px;
     }
 
-    .tauthor { display: flex; align-items: center; gap: 0.75rem; }
+    .tauthor {
+      display: inline-flex; align-items: center; gap: 0.8rem;
+      text-decoration: none; padding-right: 1rem;
+      transition: opacity 0.2s;
+    }
+
+    .tauthor:hover { opacity: 0.7; }
 
     .tavatar {
-      width: 36px; height: 36px; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 0.75rem; font-weight: 600; color: #fff; flex-shrink: 0;
+      width: 44px; height: 44px; border-radius: 50%;
+      object-fit: cover; background: var(--border);
     }
 
-    .tname { font-size: 0.85rem; font-weight: 500; color: var(--black); }
+    .tname { font-size: 0.9rem; font-weight: 500; color: var(--black); }
     .trole { font-size: 0.74rem; color: var(--soft); margin-top: 1px; }
+
+    .t-controls {
+      display: flex; gap: 0.5rem; margin-top: 2rem; justify-content: flex-end;
+    }
+
+    .t-btn {
+      width: 40px; height: 40px; border-radius: 50%;
+      border: 1px solid var(--border); background: #fff;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; color: var(--black); transition: all 0.2s;
+    }
+
+    .t-btn:hover { border-color: var(--black); background: #fafaf8; }
 
     /* ── CONTACT FOOTER ───────────────────────────────────── */
     #contact {
       border-top: 1px solid var(--border);
-      padding: 5.5rem 0 5rem;
-      background: #ffffff !important;
+      padding: 5.5rem 0 3rem;
+      background: var(--black) !important;
+    }
+
+    #contact .section-label {
+      color: rgba(255,255,255,0.5);
+      border-bottom-color: rgba(255,255,255,0.15);
     }
 
     #contact h2 {
       font-family: var(--serif);
-      font-size: clamp(2rem, 4vw, 3.2rem);
-      font-weight: 400; letter-spacing: -0.025em;
-      color: var(--black); margin-bottom: 0.75rem; line-height: 1.1;
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-weight: 400; letter-spacing: -0.02em;
+      color: #fff; margin-bottom: 0.75rem; line-height: 1.1;
     }
 
-    #contact h2 em { font-style: italic; color: var(--accent); }
+    #contact h2 em { font-style: italic; color: var(--blue); }
 
     #contact .contact-sub {
-      font-size: 0.95rem; font-weight: 300; color: var(--mid);
+      font-size: 0.95rem; font-weight: 300; color: rgba(255,255,255,0.7);
       margin-bottom: 2.5rem; max-width: 400px; line-height: 1.75;
     }
 
@@ -359,29 +494,40 @@
     .clink {
       display: inline-flex; align-items: center; gap: 0.4rem;
       font-size: 0.875rem; font-weight: 500; padding: 0.65rem 1.4rem;
-      border-radius: 100px; border: 1px solid var(--border);
-      color: var(--off); background: #fff; transition: all 0.18s;
+      border-radius: 100px; border: 1px solid rgba(255,255,255,0.3);
+      color: #fff; background: transparent; transition: all 0.18s;
     }
 
-    .clink:hover { border-color: var(--accent); color: var(--accent); background: var(--accent2); }
+    .clink:hover { background: rgba(255,255,255,0.1); border-color: #fff; }
 
-    .clink.primary { background: var(--black); color: #fff; border-color: var(--black); }
-    .clink.primary:hover { background: var(--accent); border-color: var(--accent); }
+    .clink.primary { background: #fff; color: var(--black); border-color: #fff; }
+    .clink.primary:hover { background: #f0f0f0; border-color: #f0f0f0; }
 
-    /* ── FOOTER BAR ───────────────────────────────────────── */
+    /* ── FOOTER ───────────────────────────────────────────── */
     footer {
-      border-top: 1px solid var(--border); padding: 1.25rem var(--pad);
-      background: #ffffff !important;
+      padding: 0 0 2rem;
+      background: var(--black) !important;
     }
 
-    .footer-inner {
-      max-width: var(--max); margin: 0 auto;
-      display: flex; justify-content: space-between; align-items: center;
-      flex-wrap: wrap; gap: 1rem;
+    .footer-wrap {
+      max-width: var(--max); margin: 0 auto; padding: 0 var(--pad);
+      display: flex; flex-direction: column;
     }
 
-    footer p, footer a { font-size: 0.78rem; color: var(--soft); transition: color 0.18s; }
-    footer a:hover { color: var(--accent); }
+    .footer-bottom {
+      display: grid; grid-template-columns: 1fr 1fr; align-items: center;
+      gap: 1rem;
+      border-top: 1px solid rgba(255,255,255,0.15);
+      padding-top: 1.5rem;
+    }
+
+    .footer-bottom p {
+      font-size: 0.75rem; color: rgba(255,255,255,0.5);
+    }
+    
+    .footer-bottom p:last-child {
+      text-align: right;
+    }
 
     /* ── ANIMATIONS ───────────────────────────────────────── */
     @keyframes fadeUp {
@@ -391,11 +537,13 @@
 
     /* ── RESPONSIVE ───────────────────────────────────────── */
     @media (max-width: 760px) {
-      .card-row { grid-template-columns: 1fr; }
-      .card.full { grid-column: span 1; }
-      .card.full .card-cover { aspect-ratio: 16/7; }
-      .testimonials-grid { grid-template-columns: 1fr; }
+      .work-card { grid-template-columns: 1fr; }
+      .work-card-visual { border-radius: 0 0 20px 20px; min-height: 220px; }
       .hero h1 { font-size: 2.2rem; }
+      .tcard { padding: 2rem; }
+      .tquote { font-size: 1.2rem; }
+      .footer-bottom { grid-template-columns: 1fr; text-align: center; gap: 0.5rem; }
+      .footer-bottom p:last-child { text-align: center; }
     }
 
     @media (max-width: 500px) {
@@ -413,7 +561,7 @@
       <ul class="nav-links">
         <li><a href="#work">Work</a></li>
         <li><a href="about.html">About</a></li>
-        <li><a href="resume.pdf" target="_blank" class="nav-resume">Resume ↗</a></li>
+        <li><a href="resume.pdf" target="_blank" class="nav-resume">Resume</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
     </div>
@@ -437,143 +585,79 @@
       <span class="section-label">Selected Work</span>
       <div class="cards">
 
-        <!-- Row 1: UPI full-width -->
-        <div class="card-row">
-          <a href="upi-case-study.html" class="card full">
-            <div class="card-cover cover-upi">
-              <div class="cover-art">
-                <div class="upi-mockup">
-                  <div class="upi-row">
-                    <div class="upi-dot-sm red"></div>
-                    <div class="upi-line err"></div>
-                    <div class="upi-line short err"></div>
-                  </div>
-                  <div class="upi-row">
-                    <div class="upi-dot-sm amber"></div>
-                    <div class="upi-line warn"></div>
-                    <div class="upi-line short warn"></div>
-                  </div>
-                  <div class="upi-row">
-                    <div class="upi-dot-sm green"></div>
-                    <div class="upi-line done"></div>
-                    <div class="upi-line short done"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="card-info">
-              <div class="card-tags">
-                <span class="tag tag-domain">Fintech</span>
-                <span class="tag tag-type">UX Redesign</span>
-                <span class="tag tag-wip">Case Study</span>
-              </div>
-              <div class="card-title">UPI: Fixing the Failed Payment Dead End</div>
-              <p class="card-desc">
-                75M+ UPI transactions fail every month in India. Every app responds identically — a red error and a helpline number. Users are left with three unanswered questions: did the money leave? Will it come back? When? This case study redesigns the failure experience into a transparent, trust-first real-time flow.
-              </p>
-              <div class="card-metrics">
-                <div class="metric">
-                  <span class="metric-value">75M+</span>
-                  <span class="metric-label">Failed txns / month</span>
-                </div>
-                <div class="metric">
-                  <span class="metric-value">0 of 3</span>
-                  <span class="metric-label">Apps that explain why</span>
-                </div>
-                <div class="metric">
-                  <span class="metric-value">3–7 days</span>
-                  <span class="metric-label">Avg. resolution wait</span>
-                </div>
-                <div class="metric">
-                  <span class="metric-value">↓ Trust</span>
-                  <span class="metric-label">After each failure</span>
-                </div>
-              </div>
-              <div class="card-footer">
-                <span class="card-cta">Read case study <span class="card-cta-arrow">→</span></span>
-              </div>
-            </div>
-          </a>
-        </div>
-
-        <!-- Row 2: Luna + Onboarding -->
-        <div class="card-row">
-          <a href="#" class="card">
-            <div class="card-cover cover-luna">
-              <div class="cover-art">
-                <div class="luna-mock"></div>
-                <div class="luna-mock tall"></div>
-                <div class="luna-mock"></div>
-              </div>
-            </div>
-            <div class="card-info">
+        <!-- Card 1: Luna -->
+        <a href="#" class="work-card" style="--card-index: 0; z-index: 1;">
+          <div class="work-card-text">
+            <div>
               <div class="card-tags">
                 <span class="tag tag-domain">EdTech</span>
-                <span class="tag tag-type">0 → 1 Product</span>
-                <span class="tag tag-live">Shipped · 2024</span>
+                <span class="tag tag-type">0 &rarr; 1 Product</span>
+                <span class="tag tag-live">Shipped &middot; 2024</span>
               </div>
-              <div class="card-title">Luna — HeyCoach's Freemium Growth Engine</div>
-              <p class="card-desc">
-                Designed and shipped a freemium product to introduce users into HeyCoach's ecosystem and build a consistent habit pathway toward paid DSA and System Design courses.
-              </p>
-              <div class="card-metrics">
-                <div class="metric">
-                  <span class="metric-value">↑ 40%</span>
-                  <span class="metric-label">Top-of-funnel signups</span>
+              <div class="card-title">Luna &mdash; HeyCoach's Freemium Growth Engine</div>
+              <p class="work-card-desc">Designed and shipped a freemium product to introduce users into HeyCoach's ecosystem and build a consistent habit pathway toward paid courses.</p>
+              <div class="work-card-metrics">
+                <div class="work-card-metric">
+                  <span class="work-card-metric-value">&uarr; 40%</span>
+                  <span class="work-card-metric-label">Top-of-funnel signups</span>
                 </div>
-                <div class="metric">
-                  <span class="metric-value">D7 ret.</span>
-                  <span class="metric-label">Improved post-launch</span>
+                <div class="work-card-metric">
+                  <span class="work-card-metric-value">D7 Ret.</span>
+                  <span class="work-card-metric-label">Improved post-launch</span>
                 </div>
-              </div>
-              <div class="card-footer">
-                <span class="card-cta">Read case study <span class="card-cta-arrow">→</span></span>
               </div>
             </div>
-          </a>
+            <div class="work-card-cta">View project &nbsp;&#8599;</div>
+          </div>
+          <div class="work-card-visual cover-luna">
+            <div class="cover-art">
+              <div class="luna-mock"></div>
+              <div class="luna-mock tall"></div>
+              <div class="luna-mock"></div>
+            </div>
+          </div>
+        </a>
 
-          <a href="#" class="card">
-            <div class="card-cover cover-onboarding">
-              <div class="cover-art">
-                <div class="onb-flow">
-                  <div class="onb-node done">✓</div>
-                  <div class="onb-edge done"></div>
-                  <div class="onb-node done">✓</div>
-                  <div class="onb-edge done"></div>
-                  <div class="onb-node act">3</div>
-                  <div class="onb-edge"></div>
-                  <div class="onb-node">4</div>
-                </div>
-              </div>
-            </div>
-            <div class="card-info">
+        <!-- Card 2: Onboarding -->
+        <a href="#" class="work-card amber" style="--card-index: 1; z-index: 2;">
+          <div class="work-card-text">
+            <div>
               <div class="card-tags">
                 <span class="tag tag-domain">Growth</span>
                 <span class="tag tag-type">Automation</span>
-                <span class="tag tag-live">Shipped · 2024</span>
+                <span class="tag tag-live">Shipped &middot; 2024</span>
               </div>
               <div class="card-title">Automating HeyCoach's Onboarding Flow</div>
-              <p class="card-desc">
-                Replaced 45–60 min manual sales calls with a self-serve journey — enabling users to self-screen, receive offers, and complete payment without any sales intervention.
-              </p>
-              <div class="card-metrics">
-                <div class="metric">
-                  <span class="metric-value">60 min</span>
-                  <span class="metric-label">Sales call eliminated</span>
+              <p class="work-card-desc">Replaced 45&ndash;60 min manual sales calls with a self-serve journey &mdash; enabling users to self-screen, receive offers, and pay without any sales intervention.</p>
+              <div class="work-card-metrics">
+                <div class="work-card-metric">
+                  <span class="work-card-metric-value">60 min</span>
+                  <span class="work-card-metric-label">Sales call eliminated</span>
                 </div>
-                <div class="metric">
-                  <span class="metric-value">↑ CVR</span>
-                  <span class="metric-label">Lead-to-payment rate</span>
+                <div class="work-card-metric">
+                  <span class="work-card-metric-value">&uarr; CVR</span>
+                  <span class="work-card-metric-label">Lead-to-payment rate</span>
                 </div>
-              </div>
-              <div class="card-footer">
-                <span class="card-cta">Read case study <span class="card-cta-arrow">→</span></span>
               </div>
             </div>
-          </a>
-        </div><!-- end row 2 -->
+            <div class="work-card-cta">View project &nbsp;&#8599;</div>
+          </div>
+          <div class="work-card-visual cover-onboarding">
+            <div class="cover-art">
+              <div class="onb-flow">
+                <div class="onb-node done">✓</div>
+                <div class="onb-edge done"></div>
+                <div class="onb-node done">✓</div>
+                <div class="onb-edge done"></div>
+                <div class="onb-node act">3</div>
+                <div class="onb-edge"></div>
+                <div class="onb-node">4</div>
+              </div>
+            </div>
+          </div>
+        </a>
 
-      </div><!-- end cards -->
+      </div>
     </div>
   </section>
 
@@ -581,48 +665,54 @@
   <section class="testimonials">
     <div class="wrap">
       <span class="section-label">What people say</span>
-      <div class="testimonials-grid">
-
-        <div class="tcard">
-          <p class="tquote">
-            Kanishka has a rare ability to see both the user's problem and the business constraint at the same time. The work on onboarding automation was some of the most thorough problem framing I've seen from someone at this stage.
-          </p>
-          <div class="tauthor">
-            <div class="tavatar" style="background:#4a6fa5;">AK</div>
-            <div>
-              <div class="tname">Colleague Name</div>
-              <div class="trole">Role · Company</div>
-            </div>
+      
+      <div class="t-carousel-wrap">
+        <div class="t-carousel" id="t-carousel">
+          
+          <!-- Card 1 -->
+          <div class="tcard">
+            <div class="tcard-logo">HEYCOACH</div>
+            <p class="tquote">
+              "Kanishka has a rare ability to see both the user's problem and the business constraint at the same time."
+            </p>
+            <p class="tcontext">
+              The work on onboarding automation was some of the most thorough problem framing I've seen from someone at this stage. Communication was clear, timelines were respected, and the final output exceeded expectations.
+            </p>
+            <a href="https://linkedin.com/in/theirprofile" target="_blank" class="tauthor">
+              <img src="https://ui-avatars.com/api/?name=C+N&background=0a7c6e&color=fff" alt="Colleague Name" class="tavatar">
+              <div>
+                <div class="tname">Colleague Name</div>
+                <div class="trole">Operations Manager</div>
+              </div>
+            </a>
           </div>
-        </div>
 
-        <div class="tcard">
-          <p class="tquote">
-            What stood out was the attention to edge cases and failure states — not just the happy path. That's the mark of a PM who has actually shipped things and thought through what can go wrong.
-          </p>
-          <div class="tauthor">
-            <div class="tavatar" style="background:#7a4fa5;">RS</div>
-            <div>
-              <div class="tname">Colleague Name</div>
-              <div class="trole">Role · Company</div>
-            </div>
+          <!-- Card 2 -->
+          <div class="tcard">
+            <div class="tcard-logo">FINTECH</div>
+            <p class="tquote">
+              "Professional, and incredibly creative."
+            </p>
+            <p class="tcontext">
+              What stood out was the attention to edge cases and failure states — not just the happy path. That's the mark of a PM who has actually shipped things and thought through what can go wrong.
+            </p>
+            <a href="https://linkedin.com/in/emilycarter" target="_blank" class="tauthor">
+              <img src="https://ui-avatars.com/api/?name=E+C&background=111110&color=fff" alt="Emily Carter" class="tavatar">
+              <div>
+                <div class="tname">Emily Carter</div>
+                <div class="trole">Product Lead</div>
+              </div>
+            </a>
           </div>
-        </div>
 
-        <div class="tcard">
-          <p class="tquote">
-            Kanishka combines strong analytical thinking with genuine user empathy. She asks the right questions before jumping to solutions — which is rarer than it should be in early-career PMs.
-          </p>
-          <div class="tauthor">
-            <div class="tavatar" style="background:#0a7c6e;">PM</div>
-            <div>
-              <div class="tname">Colleague Name</div>
-              <div class="trole">Role · Company</div>
-            </div>
-          </div>
         </div>
-
       </div>
+
+      <div class="t-controls">
+        <button class="t-btn" id="t-prev" aria-label="Previous testimonial">←</button>
+        <button class="t-btn" id="t-next" aria-label="Next testimonial">→</button>
+      </div>
+
     </div>
   </section>
 
@@ -630,25 +720,127 @@
   <section id="contact">
     <div class="wrap">
       <span class="section-label">Get in touch</span>
-      <h2>Let's build something<br><em>worth using.</em></h2>
-      <p class="contact-sub">
-        Open to PM, Product Designer, and Product Analyst roles at product companies and fintechs.
-      </p>
-      <div class="contact-links">
-        <a href="mailto:your@email.com" class="clink primary">Email me</a>
-        <a href="https://linkedin.com/in/yourprofile" target="_blank" class="clink">LinkedIn ↗</a>
-        <a href="resume.pdf" target="_blank" class="clink">Resume ↗</a>
+      <div class="contact-text">
+        <h2>Let's build something<br><em>worth using.</em></h2>
+        <p class="contact-sub">
+          Open to PM, Product Designer, and Product Analyst roles at product companies and fintechs.
+        </p>
+        <div class="contact-links" style="margin-top: 2.5rem;">
+          <a href="mailto:kanishkasingh7913@gmail.com" class="clink primary">Email me</a>
+          <a href="https://www.linkedin.com/in/kanishkasingh7913/" target="_blank" class="clink">LinkedIn ↗</a>
+          <a href="https://www.behance.net/kanishkasingh6/projects" target="_blank" class="clink">Behance ↗</a>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- FOOTER -->
   <footer>
-    <div class="footer-inner">
-      <p>© 2026 Kanishka Singh</p>
-      <a href="https://github.com/" target="_blank">Coded by me ↗</a>
+    <div class="footer-wrap">
+      <div class="footer-bottom">
+        <p>Vibecoded with love</p>
+        <p>Copyright © 2026 Kanishka Singh, All right reserved</p>
+      </div>
     </div>
   </footer>
 
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      /* ── TESTIMONIAL CAROUSEL ───────────────────────────────── */
+      const carouselWrap = document.querySelector(".t-carousel-wrap");
+      const carousel = document.getElementById("t-carousel");
+      const prevBtn = document.getElementById("t-prev");
+      const nextBtn = document.getElementById("t-next");
+      
+      if (carousel) {
+        let currentIndex = 0;
+        const totalCards = 2;
+        let autoPlayTimer;
+        const autoPlayDelay = 4000;
+
+        function updateCarousel() {
+          carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
+        }
+
+        function nextSlide() {
+          currentIndex = (currentIndex + 1) % totalCards;
+          updateCarousel();
+        }
+
+        function startAutoPlay() {
+          autoPlayTimer = setInterval(nextSlide, autoPlayDelay);
+        }
+
+        function stopAutoPlay() {
+          clearInterval(autoPlayTimer);
+        }
+
+        if(nextBtn) nextBtn.addEventListener("click", () => { nextSlide(); stopAutoPlay(); startAutoPlay(); });
+        if(prevBtn) prevBtn.addEventListener("click", () => { currentIndex = (currentIndex - 1 + totalCards) % totalCards; updateCarousel(); stopAutoPlay(); startAutoPlay(); });
+        if(carouselWrap) {
+          carouselWrap.addEventListener("mouseenter", stopAutoPlay);
+          carouselWrap.addEventListener("mouseleave", startAutoPlay);
+        }
+        startAutoPlay();
+      }
+
+      /* ── STACKED SCROLL ANIMATION ───────────────────────────── */
+      const workCards = Array.from(document.querySelectorAll('.work-card'));
+
+      if (workCards.length > 1) {
+        // Gather each card's natural top position in the document (before sticky kicks in)
+        // We need the sticky top offset too so we can detect when the NEXT card reaches THIS card
+        const NAV_HEIGHT = 80; // approximate nav bar height
+        const STICKY_GAP = 18; // --card-index * 18px offset per card
+
+        function getCardStickyTop(index) {
+          return NAV_HEIGHT + index * STICKY_GAP;
+        }
+
+        function updateStackedScroll() {
+          const scrollY = window.scrollY;
+
+          workCards.forEach((card, i) => {
+            // Only scale cards that have a next card sliding over them
+            if (i >= workCards.length - 1) return;
+
+            const nextCard = workCards[i + 1];
+
+            // Natural (un-sticky) top of THIS card in the document
+            const thisNatural = card.offsetTop;
+            // Natural top of NEXT card
+            const nextNatural = nextCard.offsetTop;
+            // The sticky top value at which this card is pinned
+            const stickyTop = getCardStickyTop(i);
+
+            // This card sticks when: scrollY + stickyTop >= thisNatural
+            // i.e. scrollY_sticky_start = thisNatural - stickyTop
+            const thisStickAt = thisNatural - stickyTop;
+
+            // Next card reaches this card's top when:
+            // scrollY + stickyTop_of_next = nextCard.offsetTop
+            // But we actually want to know when the leading edge of nextCard overlaps thisCard
+            // => scrollY reaches nextNatural - getCardStickyTop(i+1)  (next card pins)
+            // The scale should start when nextCard starts entering the stuck thisCard's position
+            // That happens approximately when scrollY passes thisStickAt (this card is stuck)
+            // and ends when scrollY reaches enough that nextCard completely covers thisCard
+
+            const scaleStart = thisStickAt; // card is just fully pinned
+            const cardHeight = card.offsetHeight;
+            const scaleEnd = scaleStart + cardHeight * 0.85; // over 85% of card height worth of scroll
+
+            const progress = Math.max(0, Math.min(1, (scrollY - scaleStart) / (scaleEnd - scaleStart)));
+
+            // Scale from 1.0 → 0.92
+            const scale = 1 - progress * 0.08;
+            card.style.transform = `scale(${scale})`;
+          });
+        }
+
+        window.addEventListener('scroll', updateStackedScroll, { passive: true });
+        updateStackedScroll();
+      }
+    });
+  </script>
 </body>
 </html>
