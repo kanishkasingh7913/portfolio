@@ -1,560 +1,654 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kanishka Singh - Product Manager & Designer</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            color: #1a1a1a;
-            line-height: 1.7;
-            background: #ffffff;
-            scroll-behavior: smooth;
-        }
-        
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            border-bottom: 1px solid #e5e5e5;
-        }
-        
-        .nav-container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 1.5rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #1a1a1a;
-            letter-spacing: -0.5px;
-        }
-        
-        .nav-links {
-            display: flex;
-            gap: 2.5rem;
-        }
-        
-        .nav-links a {
-            text-decoration: none;
-            color: #666;
-            font-size: 0.95rem;
-            font-weight: 500;
-            transition: color 0.2s ease;
-            cursor: pointer;
-        }
-        
-        .nav-links a:hover {
-            color: #1a1a1a;
-        }
-        
-        /* Container */
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-        
-        /* Hero Section */
-        .hero {
-            padding: 12rem 0 8rem;
-        }
-        
-        .hero h1 {
-            font-size: 3.5rem;
-            font-weight: 700;
-            letter-spacing: -2px;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-            color: #1a1a1a;
-        }
-        
-        .hero .subtitle {
-            font-size: 1.35rem;
-            color: #666;
-            font-weight: 400;
-            margin-bottom: 3rem;
-            max-width: 700px;
-            line-height: 1.6;
-        }
-        
-        .hero .cta {
-            display: inline-block;
-            padding: 1rem 2rem;
-            background: #1a1a1a;
-            color: white;
-            text-decoration: none;
-            border-radius: 6px;
-            font-weight: 500;
-            font-size: 0.95rem;
-            transition: all 0.2s ease;
-        }
-        
-        .hero .cta:hover {
-            background: #333;
-            transform: translateY(-2px);
-        }
-        
-        /* About Section */
-        .about {
-            padding: 6rem 0;
-            border-top: 1px solid #e5e5e5;
-        }
-        
-        .about h2 {
-            font-size: 2rem;
-            font-weight: 600;
-            margin-bottom: 2rem;
-            letter-spacing: -1px;
-        }
-        
-        .about-content {
-            display: grid;
-            grid-template-columns: 1.2fr 1fr;
-            gap: 4rem;
-        }
-        
-        .about-text p {
-            font-size: 1.05rem;
-            color: #666;
-            margin-bottom: 1.5rem;
-            line-height: 1.8;
-        }
-        
-        .skills-group {
-            margin-bottom: 2rem;
-        }
-        
-        .skills-group h3 {
-            font-size: 0.85rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #999;
-            margin-bottom: 1rem;
-        }
-        
-        .skills-list {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-        
-        .skills-list span {
-            font-size: 0.95rem;
-            color: #333;
-        }
-        
-        /* Projects Section */
-        .projects {
-            padding: 6rem 0;
-            border-top: 1px solid #e5e5e5;
-        }
-        
-        .section-header {
-            margin-bottom: 4rem;
-        }
-        
-        .section-header h2 {
-            font-size: 2rem;
-            font-weight: 600;
-            letter-spacing: -1px;
-            margin-bottom: 0.75rem;
-        }
-        
-        .section-header p {
-            font-size: 1.05rem;
-            color: #666;
-            max-width: 600px;
-        }
-        
-        .project-card {
-            margin-bottom: 5rem;
-            transition: opacity 0.3s ease;
-        }
-        
-        .project-card:hover {
-            opacity: 0.85;
-        }
-        
-        .project-image {
-            width: 100%;
-            height: 500px;
-            background: #f5f5f5;
-            border-radius: 8px;
-            margin-bottom: 2rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid #e5e5e5;
-            overflow: hidden;
-        }
-        
-        .project-image-placeholder {
-            font-size: 4rem;
-            color: #ccc;
-            font-weight: 300;
-        }
-        
-        .project-meta {
-            display: flex;
-            gap: 1.5rem;
-            margin-bottom: 1rem;
-            font-size: 0.85rem;
-            color: #999;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-weight: 500;
-        }
-        
-        .project-card h3 {
-            font-size: 1.75rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            letter-spacing: -0.5px;
-        }
-        
-        .project-card p {
-            font-size: 1.05rem;
-            color: #666;
-            line-height: 1.7;
-            max-width: 800px;
-        }
-        
-        .project-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.75rem;
-            margin-top: 1.5rem;
-        }
-        
-        .project-tag {
-            padding: 0.5rem 1rem;
-            background: #f5f5f5;
-            color: #666;
-            border-radius: 4px;
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
-        
-        /* Contact Section */
-        .contact {
-            padding: 6rem 0 8rem;
-            border-top: 1px solid #e5e5e5;
-        }
-        
-        .contact h2 {
-            font-size: 2rem;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-            letter-spacing: -1px;
-        }
-        
-        .contact p {
-            font-size: 1.05rem;
-            color: #666;
-            margin-bottom: 2.5rem;
-            max-width: 600px;
-        }
-        
-        .contact-links {
-            display: flex;
-            gap: 2rem;
-            flex-wrap: wrap;
-        }
-        
-        .contact-link {
-            font-size: 1rem;
-            color: #1a1a1a;
-            text-decoration: none;
-            font-weight: 500;
-            border-bottom: 2px solid #1a1a1a;
-            padding-bottom: 2px;
-            transition: opacity 0.2s ease;
-        }
-        
-        .contact-link:hover {
-            opacity: 0.6;
-        }
-        
-        /* Footer */
-        footer {
-            padding: 3rem 0;
-            border-top: 1px solid #e5e5e5;
-        }
-        
-        footer p {
-            font-size: 0.9rem;
-            color: #999;
-            text-align: center;
-        }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero {
-                padding: 9rem 0 5rem;
-            }
-            
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .hero .subtitle {
-                font-size: 1.15rem;
-            }
-            
-            .about-content {
-                grid-template-columns: 1fr;
-                gap: 3rem;
-            }
-            
-            .nav-links {
-                gap: 1.5rem;
-            }
-            
-            .nav-links a {
-                font-size: 0.9rem;
-            }
-            
-            .project-image {
-                height: 300px;
-            }
-            
-            .container {
-                padding: 0 1.5rem;
-            }
-            
-            .nav-container {
-                padding: 1.25rem 1.5rem;
-            }
-        }
-        
-        /* Smooth animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .hero, .about, .projects, .contact {
-            animation: fadeInUp 0.6s ease-out;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light only" />
+  <title>Kanishka Singh — PM & Product Designer</title>
+  <meta name="description" content="Portfolio of Kanishka Singh — Product Manager and Designer specialising in fintech and consumer apps." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --black:   #111110;
+      --off:     #3a3a38;
+      --mid:     #767672;
+      --soft:    #b0aea9;
+      --border:  #e4e2de;
+      --white:   #ffffff;
+      --accent:  #0a7c6e;
+      --accent2: #e8f4f2;
+      --serif:   'Instrument Serif', Georgia, serif;
+      --sans:    'DM Sans', system-ui, sans-serif;
+      --max:     1060px;
+      --pad:     clamp(1.25rem, 4vw, 2.5rem);
+    }
+
+    html { scroll-behavior: smooth; color-scheme: light only; background: #fff; }
+
+    body {
+      font-family: var(--sans);
+      background: #ffffff !important;
+      color: var(--black);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ── NAV ──────────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(255,255,255,0.96) !important;
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      max-width: var(--max); margin: 0 auto; padding: 0 var(--pad);
+      height: 58px; display: flex; align-items: center; justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-family: var(--serif); font-size: 1.3rem; font-style: italic;
+      color: var(--black); letter-spacing: -0.01em;
+    }
+
+    .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+
+    .nav-links a {
+      font-size: 0.875rem; font-weight: 400; color: var(--mid); transition: color 0.18s;
+    }
+
+    .nav-links a:hover { color: var(--black); }
+
+    .nav-resume {
+      padding: 0.38rem 1rem !important;
+      border: 1px solid var(--border) !important;
+      border-radius: 100px;
+      color: var(--off) !important;
+      font-weight: 500 !important;
+      transition: all 0.18s !important;
+    }
+
+    .nav-resume:hover {
+      border-color: var(--accent) !important;
+      color: var(--accent) !important;
+      background: var(--accent2);
+    }
+
+    /* ── HERO ─────────────────────────────────────────────── */
+    .hero {
+      max-width: var(--max); margin: 0 auto;
+      padding: calc(58px + 5.5rem) var(--pad) 5rem;
+      opacity: 0; animation: fadeUp 0.65s 0.08s ease forwards;
+    }
+
+    .hero-label {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.74rem; font-weight: 500; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 1.6rem;
+    }
+
+    .hero-label::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent); display: inline-block;
+      animation: blink 2.2s ease-in-out infinite;
+    }
+
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+    .hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(2.4rem, 5.8vw, 4.2rem);
+      font-weight: 400; line-height: 1.1; letter-spacing: -0.025em;
+      color: var(--black); max-width: 840px; margin-bottom: 1.75rem;
+    }
+
+    .hero h1 em { font-style: italic; color: var(--accent); }
+
+    .hero-sub {
+      font-size: 1rem; font-weight: 300; color: var(--off);
+      max-width: 500px; line-height: 1.85;
+    }
+
+    .hero-sub a {
+      color: var(--accent);
+      border-bottom: 1px solid rgba(10,124,110,0.3);
+      transition: border-color 0.18s;
+    }
+
+    .hero-sub a:hover { border-color: var(--accent); }
+
+    /* ── SHARED ───────────────────────────────────────────── */
+    .wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--pad); }
+
+    .section-label {
+      font-size: 0.71rem; font-weight: 500; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--soft);
+      padding-bottom: 1rem; margin-bottom: 2.5rem;
+      border-bottom: 1px solid var(--border);
+      display: block;
+    }
+
+    /* ── WORK ─────────────────────────────────────────────── */
+    .work {
+      padding: 0 0 6rem;
+      opacity: 0; animation: fadeUp 0.65s 0.22s ease forwards;
+    }
+
+    .cards {
+      display: flex; flex-direction: column; gap: 2px;
+      border: 1px solid var(--border); border-radius: 16px;
+      overflow: hidden; background: var(--border);
+    }
+
+    .card-row {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 2px; background: var(--border);
+    }
+
+    .card {
+      background: #ffffff; display: flex; flex-direction: column;
+      text-decoration: none; color: inherit; transition: background 0.2s;
+    }
+
+    .card:hover { background: #fafaf8; }
+    .card.full { grid-column: span 2; }
+
+    /* Covers */
+    .card-cover { width: 100%; aspect-ratio: 16/7; overflow: hidden; position: relative; }
+    .card.full .card-cover { aspect-ratio: 21/7; }
+
+    .cover-upi        { background: linear-gradient(135deg,#eef4ff,#cfe0ff); }
+    .cover-luna       { background: linear-gradient(135deg,#f3eeff,#ddd0ff); }
+    .cover-onboarding { background: linear-gradient(135deg,#eefaf3,#c4ecd8); }
+
+    /* UPI art */
+    .cover-upi .cover-art {
+      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    }
+
+    .upi-mockup {
+      background: rgba(255,255,255,0.92);
+      border: 1px solid rgba(10,60,180,0.12);
+      border-radius: 14px; padding: 16px 22px;
+      box-shadow: 0 4px 28px rgba(10,60,180,0.09);
+      display: flex; flex-direction: column; gap: 12px; min-width: 210px;
+    }
+
+    .upi-row { display: flex; align-items: center; gap: 10px; }
+
+    .upi-dot-sm { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .upi-dot-sm.red   { background: #e03030; }
+    .upi-dot-sm.amber { background: #e08800; }
+    .upi-dot-sm.green { background: #1a9e50; }
+
+    .upi-line { height: 8px; border-radius: 4px; background: #eef0f5; flex: 1; }
+    .upi-line.short { max-width: 56px; }
+    .upi-line.done  { background: rgba(26,158,80,0.22); }
+    .upi-line.warn  { background: rgba(224,136,0,0.18); }
+    .upi-line.err   { background: rgba(224,48,48,0.15); }
+
+    /* Luna art */
+    .cover-luna .cover-art {
+      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 12px;
+    }
+
+    .luna-mock {
+      background: rgba(255,255,255,0.65);
+      border: 1px solid rgba(90,50,200,0.18);
+      border-radius: 10px; width: 54px; height: 70px;
+    }
+
+    .luna-mock.tall {
+      height: 90px; background: rgba(255,255,255,0.92);
+      border-color: rgba(90,50,200,0.3);
+      box-shadow: 0 6px 20px rgba(90,50,200,0.1);
+    }
+
+    /* Onboarding art */
+    .cover-onboarding .cover-art {
+      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    }
+
+    .onb-flow { display: flex; align-items: center; }
+
+    .onb-node {
+      width: 38px; height: 38px; border-radius: 50%;
+      border: 2px solid rgba(30,120,30,0.2);
+      background: #fff; display: flex; align-items: center; justify-content: center;
+      font-size: 0.68rem; font-weight: 600;
+      color: rgba(30,100,30,0.45); font-family: var(--sans);
+    }
+
+    .onb-node.done  { background: rgba(26,138,48,0.1); border-color: rgba(26,138,48,0.45); color: #1a8a30; }
+    .onb-node.act   { background: #fff; border-color: #1a8a30; color: #1a8a30; box-shadow: 0 0 0 4px rgba(26,138,48,0.1); }
+
+    .onb-edge { width: 28px; height: 2px; background: rgba(30,140,30,0.18); }
+    .onb-edge.done { background: rgba(26,138,48,0.45); }
+
+    /* Card body */
+    .card-info {
+      padding: 1.5rem 1.75rem 1.75rem;
+      display: flex; flex-direction: column; gap: 0.8rem; flex: 1;
+    }
+
+    .card-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+
+    .tag {
+      font-size: 0.66rem; font-weight: 500; letter-spacing: 0.07em;
+      text-transform: uppercase; padding: 3px 9px; border-radius: 100px;
+    }
+
+    .tag-domain { background: var(--accent2); color: var(--accent); }
+    .tag-type   { background: #f4f4f2; color: var(--mid); }
+    .tag-live   { background: #edfaf3; color: #1a7a40; }
+    .tag-wip    { background: #fffbee; color: #8a7000; }
+
+    .card-title {
+      font-family: var(--serif); font-size: 1.3rem; font-weight: 400;
+      color: var(--black); line-height: 1.25; letter-spacing: -0.01em;
+    }
+
+    .card.full .card-title { font-size: 1.55rem; }
+
+    .card-desc {
+      font-size: 0.875rem; font-weight: 300; color: var(--mid); line-height: 1.7;
+    }
+
+    /* Metrics */
+    .card-metrics {
+      display: flex; gap: 1.5rem; flex-wrap: wrap;
+      padding: 0.9rem 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .metric { display: flex; flex-direction: column; gap: 2px; }
+
+    .metric-value {
+      font-family: var(--serif); font-size: 1.2rem;
+      font-weight: 400; color: var(--black); letter-spacing: -0.02em;
+    }
+
+    .metric-label { font-size: 0.67rem; color: var(--soft); letter-spacing: 0.02em; }
+
+    /* CTA */
+    .card-footer { display: flex; align-items: center; margin-top: auto; }
+
+    .card-cta {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.82rem; font-weight: 500; color: var(--accent);
+      padding: 0.5rem 1.1rem;
+      border: 1px solid rgba(10,124,110,0.28);
+      border-radius: 100px;
+      background: var(--accent2);
+      transition: all 0.18s;
+    }
+
+    .card-cta-arrow { transition: transform 0.18s; display: inline-block; }
+    .card:hover .card-cta { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .card:hover .card-cta-arrow { transform: translateX(3px); }
+
+    /* ── TESTIMONIALS ─────────────────────────────────────── */
+    .testimonials {
+      border-top: 1px solid var(--border);
+      padding: 5rem 0 6rem;
+      opacity: 0; animation: fadeUp 0.65s 0.32s ease forwards;
+    }
+
+    .testimonials-grid {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 1.25rem;
+    }
+
+    .tcard {
+      border: 1px solid var(--border); border-radius: 12px;
+      padding: 1.75rem; display: flex; flex-direction: column; gap: 1.4rem;
+      background: #fff; transition: box-shadow 0.2s;
+    }
+
+    .tcard:hover { box-shadow: 0 4px 22px rgba(0,0,0,0.055); }
+
+    .tquote {
+      font-family: var(--serif); font-size: 1rem; font-style: italic;
+      color: var(--off); line-height: 1.68; flex: 1;
+    }
+
+    .tquote::before {
+      content: '\201C'; color: var(--accent); font-size: 1.5rem;
+      line-height: 0; vertical-align: -0.35em; margin-right: 2px;
+    }
+
+    .tauthor { display: flex; align-items: center; gap: 0.75rem; }
+
+    .tavatar {
+      width: 36px; height: 36px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; font-weight: 600; color: #fff; flex-shrink: 0;
+    }
+
+    .tname { font-size: 0.85rem; font-weight: 500; color: var(--black); }
+    .trole { font-size: 0.74rem; color: var(--soft); margin-top: 1px; }
+
+    /* ── CONTACT FOOTER ───────────────────────────────────── */
+    #contact {
+      border-top: 1px solid var(--border);
+      padding: 5.5rem 0 5rem;
+      background: #ffffff !important;
+    }
+
+    #contact h2 {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 400; letter-spacing: -0.025em;
+      color: var(--black); margin-bottom: 0.75rem; line-height: 1.1;
+    }
+
+    #contact h2 em { font-style: italic; color: var(--accent); }
+
+    #contact .contact-sub {
+      font-size: 0.95rem; font-weight: 300; color: var(--mid);
+      margin-bottom: 2.5rem; max-width: 400px; line-height: 1.75;
+    }
+
+    .contact-links { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+    .clink {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-size: 0.875rem; font-weight: 500; padding: 0.65rem 1.4rem;
+      border-radius: 100px; border: 1px solid var(--border);
+      color: var(--off); background: #fff; transition: all 0.18s;
+    }
+
+    .clink:hover { border-color: var(--accent); color: var(--accent); background: var(--accent2); }
+
+    .clink.primary { background: var(--black); color: #fff; border-color: var(--black); }
+    .clink.primary:hover { background: var(--accent); border-color: var(--accent); }
+
+    /* ── FOOTER BAR ───────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border); padding: 1.25rem var(--pad);
+      background: #ffffff !important;
+    }
+
+    .footer-inner {
+      max-width: var(--max); margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 1rem;
+    }
+
+    footer p, footer a { font-size: 0.78rem; color: var(--soft); transition: color 0.18s; }
+    footer a:hover { color: var(--accent); }
+
+    /* ── ANIMATIONS ───────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ───────────────────────────────────────── */
+    @media (max-width: 760px) {
+      .card-row { grid-template-columns: 1fr; }
+      .card.full { grid-column: span 1; }
+      .card.full .card-cover { aspect-ratio: 16/7; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 2.2rem; }
+    }
+
+    @media (max-width: 500px) {
+      .nav-links { gap: 1rem; }
+      .nav-resume { display: none !important; }
+    }
+  </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav>
-        <div class="nav-container">
-            <div class="logo">Kanishka Singh</div>
-            <div class="nav-links">
-                <a onclick="document.getElementById('work').scrollIntoView({behavior: 'smooth'}); return false;">Work</a>
-                <a onclick="document.getElementById('about').scrollIntoView({behavior: 'smooth'}); return false;">About</a>
-                <a onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'}); return false;">Contact</a>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Ks.</a>
+      <ul class="nav-links">
+        <li><a href="#work">Work</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="resume.pdf" target="_blank" class="nav-resume">Resume ↗</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-label">Open to opportunities</div>
+    <h1>PM &amp; Product Designer<br>
+        turning <em>complex problems</em><br>
+        into products people use.</h1>
+    <p class="hero-sub">
+      2 years building in edtech. Now focused on fintech and consumer apps.
+      Based in India &mdash; <a href="#contact">available for full-time roles.</a>
+    </p>
+  </header>
+
+  <!-- WORK -->
+  <section id="work" class="work">
+    <div class="wrap">
+      <span class="section-label">Selected Work</span>
+      <div class="cards">
+
+        <!-- Row 1: UPI full-width -->
+        <div class="card-row">
+          <a href="upi-case-study.html" class="card full">
+            <div class="card-cover cover-upi">
+              <div class="cover-art">
+                <div class="upi-mockup">
+                  <div class="upi-row">
+                    <div class="upi-dot-sm red"></div>
+                    <div class="upi-line err"></div>
+                    <div class="upi-line short err"></div>
+                  </div>
+                  <div class="upi-row">
+                    <div class="upi-dot-sm amber"></div>
+                    <div class="upi-line warn"></div>
+                    <div class="upi-line short warn"></div>
+                  </div>
+                  <div class="upi-row">
+                    <div class="upi-dot-sm green"></div>
+                    <div class="upi-line done"></div>
+                    <div class="upi-line short done"></div>
+                  </div>
+                </div>
+              </div>
             </div>
+            <div class="card-info">
+              <div class="card-tags">
+                <span class="tag tag-domain">Fintech</span>
+                <span class="tag tag-type">UX Redesign</span>
+                <span class="tag tag-wip">Case Study</span>
+              </div>
+              <div class="card-title">UPI: Fixing the Failed Payment Dead End</div>
+              <p class="card-desc">
+                75M+ UPI transactions fail every month in India. Every app responds identically — a red error and a helpline number. Users are left with three unanswered questions: did the money leave? Will it come back? When? This case study redesigns the failure experience into a transparent, trust-first real-time flow.
+              </p>
+              <div class="card-metrics">
+                <div class="metric">
+                  <span class="metric-value">75M+</span>
+                  <span class="metric-label">Failed txns / month</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-value">0 of 3</span>
+                  <span class="metric-label">Apps that explain why</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-value">3–7 days</span>
+                  <span class="metric-label">Avg. resolution wait</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-value">↓ Trust</span>
+                  <span class="metric-label">After each failure</span>
+                </div>
+              </div>
+              <div class="card-footer">
+                <span class="card-cta">Read case study <span class="card-cta-arrow">→</span></span>
+              </div>
+            </div>
+          </a>
         </div>
-    </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="container">
-            <h1>Product Manager & Designer building experiences that matter</h1>
-            <p class="subtitle">
-                I bridge strategy and design to create products that solve real problems. Currently exploring opportunities in B2C SaaS and D2C products.
-            </p>
-            <a href="#work" onclick="document.getElementById('work').scrollIntoView({behavior: 'smooth'}); return false;" class="cta">View Selected Work</a>
+        <!-- Row 2: Luna + Onboarding -->
+        <div class="card-row">
+          <a href="#" class="card">
+            <div class="card-cover cover-luna">
+              <div class="cover-art">
+                <div class="luna-mock"></div>
+                <div class="luna-mock tall"></div>
+                <div class="luna-mock"></div>
+              </div>
+            </div>
+            <div class="card-info">
+              <div class="card-tags">
+                <span class="tag tag-domain">EdTech</span>
+                <span class="tag tag-type">0 → 1 Product</span>
+                <span class="tag tag-live">Shipped · 2024</span>
+              </div>
+              <div class="card-title">Luna — HeyCoach's Freemium Growth Engine</div>
+              <p class="card-desc">
+                Designed and shipped a freemium product to introduce users into HeyCoach's ecosystem and build a consistent habit pathway toward paid DSA and System Design courses.
+              </p>
+              <div class="card-metrics">
+                <div class="metric">
+                  <span class="metric-value">↑ 40%</span>
+                  <span class="metric-label">Top-of-funnel signups</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-value">D7 ret.</span>
+                  <span class="metric-label">Improved post-launch</span>
+                </div>
+              </div>
+              <div class="card-footer">
+                <span class="card-cta">Read case study <span class="card-cta-arrow">→</span></span>
+              </div>
+            </div>
+          </a>
+
+          <a href="#" class="card">
+            <div class="card-cover cover-onboarding">
+              <div class="cover-art">
+                <div class="onb-flow">
+                  <div class="onb-node done">✓</div>
+                  <div class="onb-edge done"></div>
+                  <div class="onb-node done">✓</div>
+                  <div class="onb-edge done"></div>
+                  <div class="onb-node act">3</div>
+                  <div class="onb-edge"></div>
+                  <div class="onb-node">4</div>
+                </div>
+              </div>
+            </div>
+            <div class="card-info">
+              <div class="card-tags">
+                <span class="tag tag-domain">Growth</span>
+                <span class="tag tag-type">Automation</span>
+                <span class="tag tag-live">Shipped · 2024</span>
+              </div>
+              <div class="card-title">Automating HeyCoach's Onboarding Flow</div>
+              <p class="card-desc">
+                Replaced 45–60 min manual sales calls with a self-serve journey — enabling users to self-screen, receive offers, and complete payment without any sales intervention.
+              </p>
+              <div class="card-metrics">
+                <div class="metric">
+                  <span class="metric-value">60 min</span>
+                  <span class="metric-label">Sales call eliminated</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-value">↑ CVR</span>
+                  <span class="metric-label">Lead-to-payment rate</span>
+                </div>
+              </div>
+              <div class="card-footer">
+                <span class="card-cta">Read case study <span class="card-cta-arrow">→</span></span>
+              </div>
+            </div>
+          </a>
+        </div><!-- end row 2 -->
+
+      </div><!-- end cards -->
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials">
+    <div class="wrap">
+      <span class="section-label">What people say</span>
+      <div class="testimonials-grid">
+
+        <div class="tcard">
+          <p class="tquote">
+            Kanishka has a rare ability to see both the user's problem and the business constraint at the same time. The work on onboarding automation was some of the most thorough problem framing I've seen from someone at this stage.
+          </p>
+          <div class="tauthor">
+            <div class="tavatar" style="background:#4a6fa5;">AK</div>
+            <div>
+              <div class="tname">Colleague Name</div>
+              <div class="trole">Role · Company</div>
+            </div>
+          </div>
         </div>
-    </section>
 
-    <!-- Projects Section -->
-    <section id="work" class="projects">
-        <div class="container">
-            <div class="section-header">
-                <h2>Selected Work</h2>
-                <p>A collection of product management and design projects</p>
+        <div class="tcard">
+          <p class="tquote">
+            What stood out was the attention to edge cases and failure states — not just the happy path. That's the mark of a PM who has actually shipped things and thought through what can go wrong.
+          </p>
+          <div class="tauthor">
+            <div class="tavatar" style="background:#7a4fa5;">RS</div>
+            <div>
+              <div class="tname">Colleague Name</div>
+              <div class="trole">Role · Company</div>
             </div>
-
-            <!-- Project 1 -->
-            <div class="project-card">
-                <div class="project-image">
-                    <div class="project-image-placeholder">📱</div>
-                </div>
-                <div class="project-meta">
-                    <span>Product Management</span>
-                    <span>2024</span>
-                </div>
-                <h3>Product Project Title</h3>
-                <p>
-                    Brief description of the problem you were solving, your approach, and the impact. Focus on the user problem, your strategic thinking, and measurable outcomes. Keep it concise but impactful.
-                </p>
-                <div class="project-tags">
-                    <span class="project-tag">Product Strategy</span>
-                    <span class="project-tag">User Research</span>
-                    <span class="project-tag">Data Analysis</span>
-                </div>
-            </div>
-
-            <!-- Project 2 -->
-            <div class="project-card">
-                <div class="project-image">
-                    <div class="project-image-placeholder">✨</div>
-                </div>
-                <div class="project-meta">
-                    <span>Product Design</span>
-                    <span>2024</span>
-                </div>
-                <h3>Design Project Title</h3>
-                <p>
-                    Brief description highlighting the design challenge, your process, and the solution. Focus on user needs, design decisions, and how the design improved the experience.
-                </p>
-                <div class="project-tags">
-                    <span class="project-tag">UI/UX Design</span>
-                    <span class="project-tag">Figma</span>
-                    <span class="project-tag">Prototyping</span>
-                </div>
-            </div>
-
-            <!-- Project 3 -->
-            <div class="project-card">
-                <div class="project-image">
-                    <div class="project-image-placeholder">🚀</div>
-                </div>
-                <div class="project-meta">
-                    <span>Product Management</span>
-                    <span>2023</span>
-                </div>
-                <h3>Another Product Project</h3>
-                <p>
-                    Description of another PM project showcasing different aspects of your work - perhaps a feature launch, optimization work, or 0-to-1 product development.
-                </p>
-                <div class="project-tags">
-                    <span class="project-tag">MVP Development</span>
-                    <span class="project-tag">Roadmapping</span>
-                    <span class="project-tag">Metrics</span>
-                </div>
-            </div>
-
-            <!-- Project 4 -->
-            <div class="project-card">
-                <div class="project-image">
-                    <div class="project-image-placeholder">🎨</div>
-                </div>
-                <div class="project-meta">
-                    <span>Product Design</span>
-                    <span>2023</span>
-                </div>
-                <h3>Another Design Project</h3>
-                <p>
-                    Description of another design project - could be a redesign, design system work, or a complex interaction design challenge you solved.
-                </p>
-                <div class="project-tags">
-                    <span class="project-tag">Design System</span>
-                    <span class="project-tag">User Testing</span>
-                    <span class="project-tag">Interaction Design</span>
-                </div>
-            </div>
+          </div>
         </div>
-    </section>
 
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container">
-            <div class="about-content">
-                <div class="about-text">
-                    <h2>About</h2>
-                    <p>
-                        I'm a Product Manager and Designer with a passion for creating products that solve real problems. My background spans both strategic product thinking and hands-on design work, allowing me to bridge the gap between user needs and business goals.
-                    </p>
-                    <p>
-                        I believe great products are born at the intersection of user empathy, business strategy, and beautiful design. Currently, I'm learning to code to better understand the full product development lifecycle.
-                    </p>
-                    <p>
-                        When I'm not working on products, you'll find me exploring new design tools, reading about consumer behavior, or working on side projects.
-                    </p>
-                </div>
-                <div class="about-skills">
-                    <div class="skills-group">
-                        <h3>Product Management</h3>
-                        <div class="skills-list">
-                            <span>Product Strategy</span>
-                            <span>User Research</span>
-                            <span>Data Analysis</span>
-                            <span>Roadmapping</span>
-                            <span>Stakeholder Management</span>
-                            <span>Agile/Scrum</span>
-                        </div>
-                    </div>
-                    
-                    <div class="skills-group">
-                        <h3>Design</h3>
-                        <div class="skills-list">
-                            <span>UI/UX Design</span>
-                            <span>Figma</span>
-                            <span>Prototyping</span>
-                            <span>User Testing</span>
-                            <span>Design Systems</span>
-                            <span>Wireframing</span>
-                        </div>
-                    </div>
-                    
-                    <div class="skills-group">
-                        <h3>Technical</h3>
-                        <div class="skills-list">
-                            <span>HTML/CSS/JavaScript</span>
-                            <span>React (Learning)</span>
-                            <span>AI Tools</span>
-                            <span>SQL</span>
-                            <span>No-Code Tools</span>
-                        </div>
-                    </div>
-                </div>
+        <div class="tcard">
+          <p class="tquote">
+            Kanishka combines strong analytical thinking with genuine user empathy. She asks the right questions before jumping to solutions — which is rarer than it should be in early-career PMs.
+          </p>
+          <div class="tauthor">
+            <div class="tavatar" style="background:#0a7c6e;">PM</div>
+            <div>
+              <div class="tname">Colleague Name</div>
+              <div class="trole">Role · Company</div>
             </div>
+          </div>
         </div>
-    </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2>Let's Connect</h2>
-            <p>
-                I'm currently exploring new opportunities in product management and design. Feel free to reach out if you'd like to discuss products, collaborate, or just chat.
-            </p>
-            <div class="contact-links">
-                <a href="mailto:your.email@example.com" class="contact-link">Email</a>
-                <a href="https://linkedin.com/in/yourprofile" target="_blank" class="contact-link">LinkedIn</a>
-                <a href="https://twitter.com/yourhandle" target="_blank" class="contact-link">Twitter</a>
-                <a href="https://dribbble.com/yourprofile" target="_blank" class="contact-link">Dribbble</a>
-            </div>
-        </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <p>© 2025 Kanishka Singh. Designed and coded with care.</p>
-        </div>
-    </footer>
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="wrap">
+      <span class="section-label">Get in touch</span>
+      <h2>Let's build something<br><em>worth using.</em></h2>
+      <p class="contact-sub">
+        Open to PM, Product Designer, and Product Analyst roles at product companies and fintechs.
+      </p>
+      <div class="contact-links">
+        <a href="mailto:your@email.com" class="clink primary">Email me</a>
+        <a href="https://linkedin.com/in/yourprofile" target="_blank" class="clink">LinkedIn ↗</a>
+        <a href="resume.pdf" target="_blank" class="clink">Resume ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <p>© 2026 Kanishka Singh</p>
+      <a href="https://github.com/" target="_blank">Coded by me ↗</a>
+    </div>
+  </footer>
+
 </body>
 </html>
