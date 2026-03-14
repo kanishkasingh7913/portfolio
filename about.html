@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Kanishka Singh</title>
+  <meta name="description" content="About Kanishka Singh — PM & Product Designer with 2+ years building in edtech, now focused on fintech and consumer apps." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --black:   #111110;
+      --off:     #3a3a38;
+      --mid:     #767672;
+      --soft:    #b0aea9;
+      --border:  #e4e2de;
+      --bg:      #f7f6f4;
+      --white:   #ffffff;
+      --blue:    #1e44d4;
+      --blue-lt: #eef1fd;
+      --serif:   'Instrument Serif', Georgia, serif;
+      --sans:    'DM Sans', system-ui, sans-serif;
+      --max:     1060px;
+      --pad:     clamp(1.25rem, 4vw, 2.5rem);
+    }
+
+    html { scroll-behavior: smooth; background: #fff; }
+    body {
+      font-family: var(--sans);
+      background: #ffffff;
+      color: var(--black);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── NAV ───────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-wrap {
+      max-width: var(--max); margin: 0 auto;
+      padding: 0 var(--pad);
+      display: flex; align-items: center; justify-content: space-between;
+      height: 56px;
+    }
+    .nav-logo {
+      font-family: var(--serif); font-size: 1.25rem;
+      font-style: italic; letter-spacing: -0.01em;
+      color: var(--black);
+    }
+    .nav-links { display: flex; gap: 2rem; }
+    .nav-links a {
+      font-size: 0.875rem; font-weight: 400; color: var(--mid);
+      transition: color 0.15s;
+    }
+    .nav-links a:hover { color: var(--black); }
+    .nav-links a.active { color: var(--black); font-weight: 500; }
+
+    /* ── MAIN LAYOUT ────────────────────────────────────── */
+    main { padding-top: 56px; }
+
+    .wrap {
+      max-width: var(--max); margin: 0 auto; padding: 0 var(--pad);
+    }
+
+    /* ── HERO ───────────────────────────────────────────── */
+    .about-hero {
+      padding: 5rem 0 4rem;
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .about-photo-col { position: sticky; top: 80px; }
+
+    .about-portrait {
+      width: 100%;
+      aspect-ratio: 3/4;
+      border-radius: 18px;
+      overflow: hidden;
+      background: var(--bg);
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    /* Placeholder avatar if no real photo */
+    .portrait-placeholder {
+      width: 100%; height: 100%;
+      background: linear-gradient(145deg, var(--blue-lt) 0%, #d8e4ff 100%);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 0.75rem;
+    }
+    .portrait-placeholder .avatar-initials {
+      font-family: var(--serif);
+      font-size: 5rem; font-style: italic;
+      color: var(--blue); opacity: 0.6;
+      line-height: 1;
+    }
+    .portrait-placeholder .avatar-label {
+      font-size: 0.75rem; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--blue); opacity: 0.5;
+    }
+
+    /* Real photo — shown when image loads */
+    .about-portrait img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center top;
+      display: block;
+    }
+
+    .about-bio-col {}
+
+    .about-greeting {
+      font-family: var(--serif);
+      font-size: clamp(2.2rem, 4.5vw, 3.5rem);
+      font-weight: 400; line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: var(--black);
+      margin-bottom: 2rem;
+    }
+    .about-greeting em { font-style: italic; color: var(--blue); }
+
+    .about-bio p {
+      font-size: 1.05rem; font-weight: 300;
+      color: var(--off); line-height: 1.8;
+      margin-bottom: 1.25rem;
+    }
+    .about-bio p:last-child { margin-bottom: 0; }
+    .about-bio strong { font-weight: 500; color: var(--black); }
+    .about-bio a {
+      color: var(--blue);
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s;
+    }
+    .about-bio a:hover { border-color: var(--blue); }
+
+    /* ── QUICK FACTS ROW ─────────────────────────────────── */
+    .quick-facts {
+      display: flex; gap: 2.5rem; margin-top: 2.5rem;
+      padding-top: 2rem; border-top: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+    .fact { display: flex; flex-direction: column; gap: 0.2rem; }
+    .fact-label {
+      font-size: 0.7rem; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--soft);
+    }
+    .fact-value {
+      font-size: 0.95rem; font-weight: 400;
+      color: var(--black);
+    }
+
+    /* ── DIVIDER ─────────────────────────────────────────── */
+    .section-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 0;
+    }
+
+    /* ── EXPERIENCE SECTION ─────────────────────────────── */
+    .experience-section { padding: 4rem 0; }
+
+    .section-header {
+      display: flex; align-items: baseline; gap: 1rem;
+      margin-bottom: 3rem;
+    }
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-weight: 400; letter-spacing: -0.015em;
+      color: var(--black);
+    }
+    .section-count {
+      font-size: 0.8rem; font-weight: 400;
+      color: var(--soft);
+    }
+
+    .exp-list { display: flex; flex-direction: column; gap: 0; }
+
+    .exp-item {
+      display: grid;
+      grid-template-columns: 140px 1fr auto;
+      gap: 2rem;
+      padding: 1.75rem 0;
+      border-bottom: 1px solid var(--border);
+      align-items: start;
+    }
+    .exp-item:first-child { border-top: 1px solid var(--border); }
+
+    .exp-year {
+      font-size: 0.82rem; font-weight: 400;
+      color: var(--soft); padding-top: 0.2rem;
+    }
+    .exp-body {}
+    .exp-role {
+      font-size: 1rem; font-weight: 500;
+      color: var(--black); margin-bottom: 0.2rem;
+    }
+    .exp-company {
+      font-size: 0.9rem; font-weight: 400;
+      color: var(--mid); margin-bottom: 0.6rem;
+    }
+    .exp-desc {
+      font-size: 0.88rem; font-weight: 300;
+      color: var(--off); line-height: 1.7;
+    }
+    .exp-tag {
+      font-size: 0.68rem; font-weight: 500;
+      letter-spacing: 0.07em; text-transform: uppercase;
+      padding: 3px 10px; border-radius: 100px;
+      background: var(--blue-lt); color: var(--blue);
+      white-space: nowrap; align-self: start;
+    }
+
+    /* ── SKILLS SECTION ─────────────────────────────────── */
+    .skills-section { padding: 4rem 0; }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.5rem;
+    }
+
+    .skill-group {}
+    .skill-group-label {
+      font-size: 0.72rem; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--soft); margin-bottom: 1rem;
+    }
+    .skill-list {
+      display: flex; flex-direction: column; gap: 0.5rem;
+    }
+    .skill-item {
+      font-size: 0.92rem; font-weight: 300;
+      color: var(--off); padding: 0.4rem 0;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .skill-item::before {
+      content: '';
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--blue);
+      opacity: 0.5;
+      flex-shrink: 0;
+    }
+
+    /* ── OUTSIDE WORK SECTION ───────────────────────────── */
+    .outside-section { padding: 4rem 0; }
+
+    .outside-blurb {
+      max-width: 600px;
+      font-size: 1.05rem; font-weight: 300;
+      color: var(--off); line-height: 1.8;
+      margin-bottom: 3rem;
+    }
+    .outside-blurb strong { font-weight: 500; color: var(--black); }
+
+    /* Photo grid */
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto auto;
+      gap: 0.75rem;
+    }
+    .photo-cell {
+      border-radius: 14px;
+      overflow: hidden;
+      aspect-ratio: 1;
+      background: var(--bg);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .photo-cell:nth-child(2) {
+      aspect-ratio: auto;
+      grid-row: span 2;
+    }
+    .photo-cell .photo-placeholder {
+      width: 100%; height: 100%; min-height: 160px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 0.5rem;
+      background: #f0f0ee;
+    }
+    .photo-placeholder .ph-icon { font-size: 1.75rem; opacity: 0.35; }
+    .photo-placeholder .ph-label {
+      font-size: 0.7rem; font-weight: 500;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--soft);
+    }
+
+    /* ── CONTACT FOOTER ───────────────────────────────────── */
+    #contact {
+      border-top: 1px solid var(--border);
+      padding: 5.5rem 0 3rem;
+      background: var(--black) !important;
+    }
+
+    #contact .section-label {
+      color: rgba(255,255,255,0.5);
+      border-bottom-color: rgba(255,255,255,0.15);
+    }
+
+    #contact h2 {
+      font-family: var(--serif);
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-weight: 400; letter-spacing: -0.02em;
+      color: #fff; margin-bottom: 0.75rem; line-height: 1.1;
+    }
+
+    #contact h2 em { font-style: italic; color: var(--blue); }
+
+    #contact .contact-sub {
+      font-size: 0.95rem; font-weight: 300; color: rgba(255,255,255,0.7);
+      margin-bottom: 2.5rem; max-width: 400px; line-height: 1.75;
+    }
+
+    .contact-links { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+    .clink {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-size: 0.875rem; font-weight: 500; padding: 0.65rem 1.4rem;
+      border-radius: 100px; border: 1px solid rgba(255,255,255,0.3);
+      color: #fff; background: transparent; transition: all 0.18s;
+    }
+
+    .clink:hover { background: rgba(255,255,255,0.1); border-color: #fff; }
+
+    .clink.primary { background: #fff; color: var(--black); border-color: #fff; }
+    .clink.primary:hover { background: #f0f0f0; border-color: #f0f0f0; }
+
+    /* ── FOOTER ───────────────────────────────────────────── */
+    footer {
+      padding: 0 0 2rem;
+      background: var(--black) !important;
+    }
+
+    .footer-wrap {
+      max-width: var(--max); margin: 0 auto; padding: 0 var(--pad);
+      display: flex; flex-direction: column;
+    }
+
+    .footer-bottom {
+      display: grid; grid-template-columns: 1fr 1fr; align-items: center;
+      gap: 1rem;
+      border-top: 1px solid rgba(255,255,255,0.15);
+      padding-top: 1.5rem;
+    }
+
+    .footer-bottom p {
+      font-size: 0.75rem; color: rgba(255,255,255,0.5);
+    }
+
+    .footer-bottom p:last-child {
+      text-align: right;
+    }
+
+    /* ── RESPONSIVE ─────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .about-hero { grid-template-columns: 1fr; gap: 2.5rem; }
+      .about-photo-col { position: static; }
+      .about-portrait { aspect-ratio: 4/3; max-width: 340px; }
+      .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
+      .exp-tag { align-self: auto; }
+      .skills-grid { grid-template-columns: 1fr 1fr; }
+      .photo-grid { grid-template-columns: 1fr 1fr; }
+      .photo-cell:nth-child(2) { grid-row: span 1; aspect-ratio: 1; }
+      .contact-strip { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-wrap">
+      <a href="index.html" class="nav-logo">Ks.</a>
+      <div class="nav-links">
+        <a href="index.html#work">Work</a>
+        <a href="about.html" class="active">About</a>
+        <a href="#">Resume</a>
+        <a href="index.html#contact">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- HERO: photo + bio -->
+    <section class="about-hero wrap">
+
+      <!-- Left: portrait -->
+      <div class="about-photo-col">
+        <div class="about-portrait">
+          <!-- Swap src below with your actual photo path, e.g. src="photo.jpg" -->
+          <img src="photo-portrait.jpg"
+               alt="Kanishka Singh"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="portrait-placeholder" style="display:none;">
+            <span class="avatar-initials">Ks.</span>
+            <span class="avatar-label">Add your photo</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: bio -->
+      <div class="about-bio-col">
+        <h1 class="about-greeting">Hey, I'm <em>Kanishka</em> —<br>a PM who thinks<br>like a designer.</h1>
+
+        <div class="about-bio">
+          <p>
+            I spend my days figuring out <strong>why</strong> people do what they do, then turning those insights into products that actually work. For the last 2 years I've been building in edtech at <strong>HeyCoach</strong> — shipping everything from a freemium growth engine to a fully self-serve onboarding flow that eliminated 60-minute sales calls.
+          </p>
+          <p>
+            I grew up studying design before pivoting to product management, and I refuse to let those two sides of my brain stop talking to each other. That means I spec with Figma open, write PRDs that are actually readable, and care way too much about the copy on an empty state.
+          </p>
+          <p>
+            Right now I'm looking for my next role in <strong>fintech or consumer apps</strong> — places where product decisions have a direct, measurable impact on people's lives. Based in India, open to relocation.
+          </p>
+        </div>
+
+        <!-- Quick facts -->
+        <div class="quick-facts">
+          <div class="fact">
+            <span class="fact-label">Based in</span>
+            <span class="fact-value">India</span>
+          </div>
+          <div class="fact">
+            <span class="fact-label">Experience</span>
+            <span class="fact-value">2+ years</span>
+          </div>
+          <div class="fact">
+            <span class="fact-label">Focus</span>
+            <span class="fact-value">Fintech &amp; Consumer</span>
+          </div>
+          <div class="fact">
+            <span class="fact-label">Open to</span>
+            <span class="fact-value">Full-time roles</span>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <hr class="section-divider" style="display:none" />
+
+    <!-- EXPERIENCE -->
+    <section class="experience-section" style="display:none">
+      <div class="wrap">
+        <div class="section-header">
+          <h2 class="section-title">Experience</h2>
+          <span class="section-count">3 roles</span>
+        </div>
+
+        <div class="exp-list">
+
+          <div class="exp-item">
+            <span class="exp-year">2023 — Present</span>
+            <div class="exp-body">
+              <div class="exp-role">Product Manager</div>
+              <div class="exp-company">HeyCoach</div>
+              <div class="exp-desc">Led 0→1 product development for Luna, HeyCoach's freemium growth engine. Rebuilt onboarding from a manual 60-min sales call to a fully self-serve payment journey, increasing top-of-funnel signups by 40% and improving D7 retention post-launch.</div>
+            </div>
+            <span class="exp-tag">Full-time</span>
+          </div>
+
+          <div class="exp-item">
+            <span class="exp-year">2022 — 2023</span>
+            <div class="exp-body">
+              <div class="exp-role">Associate Product Manager</div>
+              <div class="exp-company">HeyCoach</div>
+              <div class="exp-desc">Ran discovery, prototyping, and delivery for core learning features. Worked closely with engineering, design, and business stakeholders to ship iterative improvements on the core product experience.</div>
+            </div>
+            <span class="exp-tag">Full-time</span>
+          </div>
+
+          <div class="exp-item">
+            <span class="exp-year">2021 — 2022</span>
+            <div class="exp-body">
+              <div class="exp-role">Product Design Intern</div>
+              <div class="exp-company">Early-stage startup</div>
+              <div class="exp-desc">Designed end-to-end user flows, built a component library, and shipped a redesigned onboarding experience. First exposure to balancing user needs with business constraints in a fast-moving environment.</div>
+            </div>
+            <span class="exp-tag">Internship</span>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider" style="display:none" />
+
+    <!-- SKILLS -->
+    <section class="skills-section" style="display:none">
+      <div class="wrap">
+        <div class="section-header">
+          <h2 class="section-title">What I work with</h2>
+        </div>
+
+        <div class="skills-grid">
+          <div class="skill-group">
+            <div class="skill-group-label">Product</div>
+            <div class="skill-list">
+              <span class="skill-item">Product Strategy</span>
+              <span class="skill-item">User Research</span>
+              <span class="skill-item">Roadmapping</span>
+              <span class="skill-item">A/B Testing</span>
+              <span class="skill-item">PRD Writing</span>
+            </div>
+          </div>
+          <div class="skill-group">
+            <div class="skill-group-label">Design</div>
+            <div class="skill-list">
+              <span class="skill-item">Figma</span>
+              <span class="skill-item">Prototyping</span>
+              <span class="skill-item">Design Systems</span>
+              <span class="skill-item">Information Architecture</span>
+              <span class="skill-item">Wireframing</span>
+            </div>
+          </div>
+          <div class="skill-group">
+            <div class="skill-group-label">Tools &amp; Craft</div>
+            <div class="skill-list">
+              <span class="skill-item">Notion</span>
+              <span class="skill-item">Linear</span>
+              <span class="skill-item">Amplitude / Mixpanel</span>
+              <span class="skill-item">SQL (basics)</span>
+              <span class="skill-item">HTML &amp; CSS</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider" />
+
+    <!-- OUTSIDE WORK -->
+    <section class="outside-section">
+      <div class="wrap">
+        <div class="section-header">
+          <h2 class="section-title">Outside of work</h2>
+        </div>
+
+        <p class="outside-blurb">
+          When I'm not obsessing over user flows, you'll probably find me lifting weights, chasing shuttlecocks on a badminton court, or befriending every dog and cat I meet on the street. I love capturing small, often overlooked details of everyday life — from oddly placed switches to quiet moments that make you pause. These little rituals keep me grounded, curious, and creatively recharged. Work is a big part of my life, but it's the in-between moments that truly completes me.
+        </p>
+
+        <!-- Outside of work collage -->
+        <div class="photo-grid" style="display: block;">
+          <img src="photo-collage.jpg" alt="Life outside of work" style="width: 100%; border-radius: 14px; object-fit: cover;" />
+        </div>
+      </div>
+    </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="wrap">
+      <span class="section-label">Get in touch</span>
+      <div class="contact-text">
+        <h2>Let's build something<br><em>worth using.</em></h2>
+        <p class="contact-sub">
+          Open to PM, Product Designer, and Product Analyst roles at product companies and fintechs.
+        </p>
+        <div class="contact-links" style="margin-top: 2.5rem;">
+          <a href="mailto:kanishkasingh7913@gmail.com" class="clink primary">Email me</a>
+          <a href="https://www.linkedin.com/in/kanishkasingh7913/" target="_blank" class="clink">LinkedIn ↗</a>
+          <a href="https://www.behance.net/kanishkasingh6/projects" target="_blank" class="clink">Behance ↗</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-wrap">
+      <div class="footer-bottom">
+        <p>Vibecoded with love</p>
+        <p>Copyright © 2026 Kanishka Singh, All right reserved</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
