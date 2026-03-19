@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light only" />
+  <title>Automating Onboarding — HeyCoach · Kanishka Singh</title>
+  <meta name="description" content="How I replaced 45–60 minute manual sales calls with a self-serve onboarding flow that generated ₹25L+ in incremental revenue." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --black:   #111110;
+      --off:     #3a3a38;
+      --mid:     #767672;
+      --soft:    #b0aea9;
+      --border:  #e4e2de;
+      --white:   #ffffff;
+      --accent:  #0a7c6e;   /* updated to match homepage teal */
+      --accent2: #e8f4f2;
+      --serif:   'Instrument Serif', Georgia, serif;
+      --sans:    'DM Sans', system-ui, sans-serif;
+      --max:     1060px;    /* standardized to homepage max width */
+      --max-content: 740px; /* specific for case study readability */
+      --pad:     clamp(1.25rem, 4vw, 2.5rem);
+      --teal:    #0a7c6e;
+      --teal-lt: #e8f4f2;
+    }
+
+    html { scroll-behavior: smooth; color-scheme: light only; background: #fff; }
+    body { font-family: var(--sans); background: #ffffff !important; color: var(--black); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── NAV ──────────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(255,255,255,0.96) !important;
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      max-width: var(--max); margin: 0 auto; padding: 0 var(--pad);
+      height: 58px; display: flex; align-items: center; justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-family: var(--serif); font-size: 1.3rem; font-style: italic;
+      color: var(--black); letter-spacing: -0.01em;
+    }
+
+    .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+
+    .nav-links a {
+      font-size: 0.875rem; font-weight: 400; color: var(--mid); transition: color 0.18s;
+    }
+
+    .nav-links a:hover { color: var(--black); }
+
+    .nav-resume {
+      font-size: 0.875rem !important;
+      font-weight: 400 !important;
+      color: var(--mid) !important;
+      transition: color 0.18s, text-decoration 0.18s !important;
+      padding: 0 !important;
+      border: none !important;
+      border-radius: 0;
+    }
+
+    .nav-resume:hover {
+      color: var(--black) !important;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    /* ── PAGE ─────────────────────────────────────────────── */
+    .page { max-width: var(--max-content); margin: 0 auto; padding: calc(58px + 4rem) var(--pad) 6rem; }
+
+    /* ── HERO ─────────────────────────────────────────────── */
+    .cs-hero { margin-bottom: 4rem; opacity: 0; animation: fadeUp 0.65s 0.08s ease forwards; }
+
+    .cs-eyebrow { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .cs-tag { font-size: 0.67rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 10px; border-radius: 100px; }
+    .tag-domain { background: var(--accent2); color: var(--accent); }
+    .tag-type   { background: #f4f4f2; color: var(--mid); }
+    .tag-live   { background: #edfaf3; color: #1a7a40; }
+
+    .cs-hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      font-weight: 400; line-height: 1.1; letter-spacing: -0.025em;
+      color: var(--black); margin-bottom: 1.25rem;
+    }
+    .cs-hero-sub { font-size: 1.1rem; font-weight: 300; color: var(--off); line-height: 1.75; max-width: 640px; }
+
+    /* Hero cover */
+    .cs-cover {
+      width: 100%; aspect-ratio: 16/7;
+      background: #edf7f1;
+      border-radius: 12px; overflow: hidden;
+      position: relative; margin: 2.5rem 0 0;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    /* Cover illustration — before/after funnel */
+    .cover-funnel {
+      display: flex; align-items: center; gap: 0;
+      width: 90%; justify-content: center;
+    }
+
+    .funnel-step {
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      flex: 1;
+    }
+
+    .funnel-node {
+      width: 44px; height: 44px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.65rem; font-weight: 700; font-family: var(--sans);
+    }
+
+    .funnel-node.old  { background: rgba(200,50,50,0.12); border: 2px solid rgba(200,50,50,0.3); color: #c03030; }
+    .funnel-node.new  { background: rgba(26,122,64,0.12); border: 2px solid rgba(26,122,64,0.45); color: var(--accent); }
+    .funnel-node.gate { background: rgba(200,150,0,0.1);  border: 2px solid rgba(200,150,0,0.3);  color: #8a6800; font-size: 0.9rem; }
+
+    .funnel-label { font-size: 0.5rem; font-weight: 500; color: rgba(0,0,0,0.45); text-align: center; font-family: var(--sans); max-width: 52px; line-height: 1.3; }
+
+    .funnel-arrow {
+      width: 28px; height: 2px;
+      margin-bottom: 18px; flex-shrink: 0;
+    }
+
+    .funnel-arrow.old  { background: rgba(200,50,50,0.25); }
+    .funnel-arrow.new  { background: rgba(26,122,64,0.35); }
+    .funnel-arrow.cut  { background: transparent; border-top: 2px dashed rgba(200,50,50,0.3); }
+
+    .funnel-divider {
+      width: 1px; height: 70px; background: var(--border); margin: 0 16px; flex-shrink: 0;
+    }
+
+    /* ── SECTION STRUCTURE ────────────────────────────────── */
+    .wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--pad); }
+
+    .cs-section { margin-top: 4rem; opacity: 0; animation: fadeUp 0.65s ease forwards; }
+    .cs-section-label {
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--soft); display: block; margin-bottom: 0.75rem;
+    }
+    .cs-divider { border: none; border-top: 1px solid var(--border); margin-bottom: 2.5rem; }
+    .cs-section h2 { font-family: var(--serif); font-size: 1.6rem; font-weight: 400; color: var(--black); letter-spacing: -0.015em; margin-bottom: 1.25rem; line-height: 1.2; }
+    .cs-section h3 { font-family: var(--serif); font-size: 1.15rem; font-weight: 400; color: var(--black); margin-bottom: 0.75rem; margin-top: 2rem; line-height: 1.3; }
+    .cs-section p  { font-size: 0.95rem; font-weight: 300; color: var(--off); line-height: 1.85; margin-bottom: 1rem; }
+    .cs-section p:last-child { margin-bottom: 0; }
+
+    /* ── OVERVIEW TABLE ───────────────────────────────────── */
+    .overview-grid {
+      display: grid; grid-template-columns: 140px 1fr; gap: 0;
+      border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 2rem;
+    }
+    .ov-key { font-size: 0.78rem; font-weight: 500; color: var(--soft); letter-spacing: 0.04em; padding: 0.9rem 1rem; background: #fafaf8; border-bottom: 1px solid var(--border); }
+    .ov-val { font-size: 0.88rem; font-weight: 300; color: var(--off); padding: 0.9rem 1rem; border-bottom: 1px solid var(--border); line-height: 1.6; }
+    .ov-key:last-of-type, .ov-val:last-of-type { border-bottom: none; }
+
+    /* ── TL;DR CARD ───────────────────────────────────────── */
+    .tldr-card {
+      border: 1px solid var(--accent);
+      border-radius: 12px; overflow: hidden;
+      background: var(--accent2);
+    }
+    .tldr-grid {
+      padding: 1.5rem 1.75rem;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1.5rem 2.5rem;
+    }
+    .tldr-label { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
+    .tldr-val   { font-size: 0.88rem; font-weight: 300; color: var(--off); line-height: 1.65; }
+
+    /* ── PROBLEM LIST ─────────────────────────────────────── */
+    .problem-list { display: flex; flex-direction: column; gap: 0.75rem; margin: 1.25rem 0; }
+    .problem-item { padding: 0.9rem 1.1rem; border: 1px solid var(--border); border-radius: 8px; background: #ffffff; }
+    .problem-icon { flex-shrink:0; }
+    .problem-text { font-size: 0.88rem; font-weight: 300; color: var(--off); line-height: 1.6; }
+    .problem-text strong { font-weight: 500; color: var(--black); display: block; margin-bottom: 2px; }
+
+    /* ── INSIGHT CALLOUT ──────────────────────────────────── */
+    .insight {
+      border-left: 3px solid var(--accent);
+      padding: 1rem 1.25rem;
+      background: var(--accent2);
+      border-radius: 0 8px 8px 0;
+      margin: 1.5rem 0;
+    }
+    .insight p { font-size: 0.92rem; font-style: italic; color: var(--off); margin: 0; line-height: 1.7; }
+
+    /* ── BEFORE / AFTER ───────────────────────────────────── */
+    .before-after {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1px; background: var(--border);
+      border: 1px solid var(--border); border-radius: 10px;
+      overflow: hidden; margin: 1.5rem 0;
+    }
+    .ba-cell { background: #fff; padding: 1.1rem 1.25rem; }
+    .ba-label { font-size: 0.64rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.6rem; }
+    .ba-label.before { color: #e03030; }
+    .ba-label.after  { color: #1a9e50; }
+    .ba-text { font-size: 0.85rem; font-weight: 300; color: var(--off); line-height: 1.7; }
+
+    /* ── FLOW DIAGRAM ─────────────────────────────────────── */
+    .flow-diagram {
+      margin: 2rem 0;
+      border: 1px solid var(--border);
+      border-radius: 12px; overflow: hidden;
+    }
+
+    .flow-header {
+      padding: 0.7rem 1.25rem;
+      background: #fafaf8;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.68rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--soft);
+    }
+
+    .flow-steps {
+      display: flex; overflow-x: auto;
+      background: #ffffff; padding: 1.5rem 1.25rem;
+      gap: 0; align-items: center;
+    }
+
+    .flow-step {
+      display: flex; flex-direction: column;
+      align-items: center; gap: 6px;
+      min-width: 80px; flex-shrink: 0;
+    }
+
+    .flow-node {
+      width: 40px; height: 40px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.65rem; font-weight: 700; font-family: var(--sans);
+    }
+
+    .flow-node.old-step  { background: rgba(200,50,50,0.1); border: 2px solid rgba(200,50,50,0.35); color: #c03030; }
+    .flow-node.new-step  { background: rgba(26,122,64,0.1); border: 2px solid rgba(26,122,64,0.45); color: var(--accent); }
+    .flow-node.cut-step  { background: #fff0f0; border: 2px dashed rgba(200,50,50,0.4); color: #c03030; position: relative; }
+
+    .flow-step-label {
+      font-size: 0.58rem; font-weight: 400; color: var(--mid);
+      text-align: center; line-height: 1.4; max-width: 72px;
+      font-family: var(--sans);
+    }
+
+    .flow-edge {
+      width: 24px; height: 2px; flex-shrink: 0; margin-bottom: 20px;
+    }
+    .flow-edge.old { background: rgba(200,50,50,0.25); }
+    .flow-edge.new { background: rgba(26,122,64,0.35); }
+    .flow-edge.cut { border-top: 2px dashed rgba(200,50,50,0.3); background: transparent; }
+
+    .flow-divider {
+      width: 1px; min-height: 80px;
+      background: var(--border); margin: 0 20px 20px; flex-shrink: 0;
+      align-self: center;
+    }
+
+    /* ── DECISION BLOCK ───────────────────────────────────── */
+    .decision-block { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin: 1.75rem 0; }
+    .decision-header { padding: 0.9rem 1.25rem; background: #fafaf8; border-bottom: 1px solid var(--border); display: flex; gap: 0.75rem; align-items: center; }
+    .decision-num { width: 22px; height: 22px; border-radius: 50%; background: var(--accent); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 700; flex-shrink: 0; }
+    .decision-title { font-size: 0.88rem; font-weight: 500; color: var(--black); }
+    .decision-body { padding: 1.1rem 1.25rem; }
+    .decision-body p { font-size: 0.87rem; font-weight: 300; color: var(--off); line-height: 1.75; margin: 0; }
+
+    /* ── METRICS ──────────────────────────────────────────── */
+    .metrics-row {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1px; background: var(--border);
+      border: 1px solid var(--border); border-radius: 10px;
+      overflow: hidden; margin: 1.5rem 0;
+    }
+    .metric-cell { background: #fff; padding: 1.4rem; display: flex; flex-direction: column; gap: 4px; }
+    .metric-val  { font-family: var(--serif); font-size: 1.8rem; color: var(--accent); letter-spacing: -0.02em; line-height: 1; }
+    .metric-lbl  { font-size: 0.75rem; font-weight: 300; color: var(--mid); }
+
+    /* ── IMAGE PLACEHOLDER ────────────────────────────────── */
+    .img-placeholder {
+      width: 100%; border: 2px dashed var(--border); border-radius: 10px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 0.6rem;
+      background: #fafaf8; margin: 1.5rem 0; padding: 2.5rem 1rem;
+    }
+    .img-placeholder-label { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase; color: var(--soft); }
+    .img-placeholder-sub   { font-size: 0.68rem; color: var(--soft); opacity: 0.6; text-align: center; }
+
+    /* ── CAPTION ──────────────────────────────────────────── */
+    .caption { font-size: 0.78rem; font-weight: 300; color: var(--soft); text-align: center; margin-top: 0.75rem; font-style: italic; }
+
+    /* ── CHALLENGE BLOCK ──────────────────────────────────── */
+    .challenge-block {
+      border: 1px solid #fde8e8;
+      border-left: 3px solid #e03030;
+      border-radius: 0 8px 8px 0;
+      padding: 1rem 1.25rem;
+      background: #fff8f8;
+      margin: 1.5rem 0;
+    }
+    .challenge-block p { font-size: 0.88rem; font-weight: 300; color: var(--off); margin: 0; line-height: 1.75; }
+    .challenge-block strong { font-weight: 500; color: #c03030; }
+
+    /* ── NEXT CASE STUDY ──────────────────────────────────── */
+    .next-cs { margin-top: 5rem; padding-top: 3rem; border-top: 1px solid var(--border); }
+    .next-cs-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--soft); display: block; margin-bottom: 0.75rem; }
+    .next-cs-divider { border: none; border-top: 1px solid var(--border); margin-bottom: 2rem; }
+    .next-cs-card { display: grid; grid-template-columns: 220px 1fr; gap: 1.5rem; align-items: center; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; text-decoration: none; color: inherit; transition: box-shadow 0.2s; }
+    .next-cs-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.07); }
+    .next-cs-thumb { aspect-ratio: 4/3; background: linear-gradient(135deg, #f3eeff, #ddd0ff); display: flex; align-items: center; justify-content: center; }
+    .next-cs-info  { padding: 1.5rem 1.5rem 1.5rem 0; }
+    .next-cs-tags  { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 0.6rem; }
+    .next-cs-tag   { font-size: 0.64rem; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase; padding: 2px 8px; border-radius: 100px; }
+    .next-cs-title { font-family: var(--serif); font-size: 1.2rem; font-weight: 400; color: var(--black); line-height: 1.25; margin-bottom: 0.5rem; }
+    .next-cs-desc  { font-size: 0.82rem; font-weight: 300; color: var(--mid); line-height: 1.65; }
+    .next-cs-cta   { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; font-weight: 500; color: var(--accent); margin-top: 0.9rem; }
+
+    /* ── CONTACT FOOTER ───────────────────────────────────── */
+    #contact {
+      border-top: 1px solid var(--border);
+      padding: 5.5rem 0 3rem;
+      background: var(--black) !important;
+    }
+
+    #contact .section-label {
+      color: rgba(255,255,255,0.5);
+      border-bottom-color: rgba(255,255,255,0.15);
+    }
+
+    #contact h2 {
+      font-family: var(--serif);
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-weight: 400; letter-spacing: -0.02em;
+      color: #fff; margin-bottom: 0.75rem; line-height: 1.1;
+    }
+
+    #contact h2 em { font-style: italic; color: #0a7c6e; }
+
+    #contact .contact-sub {
+      font-size: 0.95rem; font-weight: 300; color: rgba(255,255,255,0.7);
+      margin-bottom: 2.5rem; max-width: 400px; line-height: 1.75;
+    }
+
+    .contact-links { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+    .clink {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-size: 0.875rem; font-weight: 500; padding: 0.65rem 1.4rem;
+      border-radius: 100px; border: 1px solid rgba(255,255,255,0.3);
+      color: #fff; background: transparent; transition: all 0.18s;
+    }
+
+    .clink:hover { background: rgba(255,255,255,0.1); border-color: #fff; }
+
+    .clink.primary { background: #fff; color: var(--black); border-color: #fff; }
+    .clink.primary:hover { background: #f0f0f0; border-color: #f0f0f0; }
+
+    /* ── FOOTER ───────────────────────────────────────────── */
+    footer {
+      padding: 0 0 2rem;
+      background: var(--black) !important;
+    }
+
+    .footer-wrap {
+      max-width: var(--max); margin: 0 auto; padding: 0 var(--pad);
+      display: flex; flex-direction: column;
+    }
+
+    .footer-bottom {
+      display: grid; grid-template-columns: 1fr 1fr; align-items: center;
+      gap: 1rem;
+      border-top: 1px solid rgba(255,255,255,0.15);
+      padding-top: 1.5rem;
+    }
+
+    .footer-bottom p {
+      font-size: 0.75rem; color: rgba(255,255,255,0.5);
+    }
+    
+    .footer-bottom p:last-child {
+      text-align: right;
+    }
+
+    /* ── ANIMATIONS ───────────────────────────────────────── */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    .cs-section:nth-child(1)  { animation-delay: 0.15s; }
+    .cs-section:nth-child(2)  { animation-delay: 0.20s; }
+    .cs-section:nth-child(3)  { animation-delay: 0.25s; }
+    .cs-section:nth-child(4)  { animation-delay: 0.30s; }
+    .cs-section:nth-child(5)  { animation-delay: 0.35s; }
+    .cs-section:nth-child(6)  { animation-delay: 0.40s; }
+    .cs-section:nth-child(7)  { animation-delay: 0.45s; }
+    .cs-section:nth-child(8)  { animation-delay: 0.50s; }
+
+    /* ── RESPONSIVE ───────────────────────────────────────── */
+    @media (max-width: 760px) {
+      .footer-bottom { grid-template-columns: 1fr; text-align: center; gap: 0.5rem; }
+      .footer-bottom p:last-child { text-align: center; }
+      .next-cs-card { grid-template-columns: 1fr; }
+      .next-cs-thumb { aspect-ratio: 16/9; }
+      .metrics-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 500px) {
+      .nav-links { gap: 1rem; }
+      .nav-resume { display: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Ks.</a>
+      <ul class="nav-links">
+        <li><a href="index.html#work">Work</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="resume.pdf" target="_blank" class="nav-resume">Resume</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="page">
+
+    <!-- HERO -->
+    <div class="cs-hero">
+      <div class="cs-eyebrow">
+        <span class="cs-tag tag-domain">Growth</span>
+        <span class="cs-tag tag-type">Automation</span>
+        <span class="cs-tag tag-type">Product-led Sales</span>
+        <span class="cs-tag tag-live">Shipped · 2025</span>
+      </div>
+      <h1>Automating HeyCoach's Onboarding Flow</h1>
+      <p class="cs-hero-sub">
+        Every lead had to sit through a 45–60 minute manual sales call before they could pay. It was a bottleneck that capped growth and frustrated high-intent users. I replaced the entire journey with a self-serve flow — and freed the sales team to focus on the cases that actually needed a human.
+      </p>
+
+      <!-- Hero cover — coded funnel illustration -->
+      <div class="cs-cover">
+        <div class="cover-funnel">
+          <!-- OLD FLOW -->
+          <div class="funnel-step">
+            <div class="funnel-node old"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c03030" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+            <div class="funnel-label">Form submitted</div>
+          </div>
+          <div class="funnel-arrow old"></div>
+          <div class="funnel-step">
+            <div class="funnel-node old"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c03030" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.06 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16z"/></svg></div>
+            <div class="funnel-label">Wait for call</div>
+          </div>
+          <div class="funnel-arrow old"></div>
+          <div class="funnel-step">
+            <div class="funnel-node gate"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8a6800" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+            <div class="funnel-label">45–60 min screening</div>
+          </div>
+          <div class="funnel-arrow old"></div>
+          <div class="funnel-step">
+            <div class="funnel-node old"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c03030" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+            <div class="funnel-label">Offer letter</div>
+          </div>
+          <div class="funnel-arrow old"></div>
+          <div class="funnel-step">
+            <div class="funnel-node old"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c03030" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div>
+            <div class="funnel-label">Token payment</div>
+          </div>
+
+          <!-- DIVIDER -->
+          <div class="funnel-divider"></div>
+
+          <!-- NEW FLOW -->
+          <div class="funnel-step">
+            <div class="funnel-node new"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1a7a40" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+            <div class="funnel-label">Form submitted</div>
+          </div>
+          <div class="funnel-arrow new"></div>
+          <div class="funnel-step">
+            <div class="funnel-node new"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1a7a40" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
+            <div class="funnel-label">Self-screening</div>
+          </div>
+          <div class="funnel-arrow new"></div>
+          <div class="funnel-step">
+            <div class="funnel-node new"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1a7a40" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+            <div class="funnel-label">Auto offer letter</div>
+          </div>
+          <div class="funnel-arrow new"></div>
+          <div class="funnel-step">
+            <div class="funnel-node new"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1a7a40" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div>
+            <div class="funnel-label">Self-serve payment</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- OVERVIEW -->
+    <div class="cs-section">
+      <span class="cs-section-label">Overview</span>
+      <hr class="cs-divider" />
+      <div class="overview-grid">
+        <span class="ov-key">Timeline</span>
+        <span class="ov-val">4 months · 2025 · HeyCoach</span>
+        <span class="ov-key">Platform</span>
+        <span class="ov-val">Web</span>
+        <span class="ov-key">My Role</span>
+        <span class="ov-val">Product Manager & Product Designer — end-to-end ownership</span>
+        <span class="ov-key">Team</span>
+        <span class="ov-val">2 developers · Sales team · Data analyst</span>
+        <span class="ov-key">Scope</span>
+        <span class="ov-val">Problem discovery · Flow mapping · PRD · UX design · Engineering collaboration · Sales adoption · Success metrics</span>
+      </div>
+      <p>I owned this project completely — from identifying the bottleneck through to designing the self-serve flow, getting sales team buy-in, and shipping with engineering. The hardest part wasn't the product. It was the internal adoption.</p>
+    </div>
+
+    <!-- TL;DR -->
+    <div class="cs-section">
+      <span class="cs-section-label">TL;DR</span>
+      <hr class="cs-divider" />
+      <div class="tldr-card">
+        <div class="tldr-grid">
+          <div>
+            <div class="tldr-label">The problem</div>
+            <div class="tldr-val">Every lead conversion required a 45–60 min manual sales call. Growth was capped by human bandwidth. High-intent users were dropping off while waiting for a human to get on a call.</div>
+          </div>
+          <div>
+            <div class="tldr-label">What I built</div>
+            <div class="tldr-val">A progressive self-serve onboarding flow — self-screening questionnaire, automated offer letter, and end-to-end payment — that replicated sales logic through the product itself.</div>
+          </div>
+          <div>
+            <div class="tldr-label">The hard part</div>
+            <div class="tldr-val">The product worked technically from day one. Getting the sales team to trust and adopt it was the real product problem. Solved through weekly syncs, iterative changes based on their feedback, and making them feel ownership over the new system.</div>
+          </div>
+          <div>
+            <div class="tldr-label">Results</div>
+            <div class="tldr-val">₹25L+ incremental revenue · 95% onboarding completion rate · 80% reduction in manual sales calls</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROCESS -->
+    <div class="cs-section">
+      <span class="cs-section-label">Process</span>
+      <hr class="cs-divider" />
+      <h2>How I approached it</h2>
+      <p>This was as much an internal change management problem as it was a product problem. The process had to account for both the user journey and the sales team's trust in the new system.</p>
+      <div style="margin: 2rem 0; overflow-x: auto;">
+        <div style="display: flex; align-items: stretch; gap: 0; min-width: 560px; border: 1px solid var(--border); border-radius: 12px; overflow: hidden;">
+          <div style="flex:1; background:#fafaf8; padding:1.25rem 1rem; position:relative; border-right:1px solid var(--border);">
+            <div style="font-size:0.6rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">01</div>
+            <div style="font-size:0.9rem; font-weight:500; color:var(--black); margin-bottom:0.4rem; font-family:var(--serif);">Discover</div>
+            <div style="font-size:0.72rem; font-weight:300; color:var(--mid); line-height:1.6;">Map existing flow · Identify drop-off points · Shadow sales calls</div>
+            <div style="position:absolute; right:-10px; top:50%; width:20px; height:20px; background:#fafaf8; border-right:1px solid var(--border); border-top:1px solid var(--border); transform:translateY(-50%) rotate(45deg); z-index:1;"></div>
+          </div>
+          <div style="flex:1; background:#ffffff; padding:1.25rem 1rem; position:relative; border-right:1px solid var(--border);">
+            <div style="font-size:0.6rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">02</div>
+            <div style="font-size:0.9rem; font-weight:500; color:var(--black); margin-bottom:0.4rem; font-family:var(--serif);">Define</div>
+            <div style="font-size:0.72rem; font-weight:300; color:var(--mid); line-height:1.6;">Replicate sales logic in product · Define success metrics · Scope constraints</div>
+            <div style="position:absolute; right:-10px; top:50%; width:20px; height:20px; background:#ffffff; border-right:1px solid var(--border); border-top:1px solid var(--border); transform:translateY(-50%) rotate(45deg); z-index:1;"></div>
+          </div>
+          <div style="flex:1; background:#fafaf8; padding:1.25rem 1rem; position:relative; border-right:1px solid var(--border);">
+            <div style="font-size:0.6rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">03</div>
+            <div style="font-size:0.9rem; font-weight:500; color:var(--black); margin-bottom:0.4rem; font-family:var(--serif);">Design</div>
+            <div style="font-size:0.72rem; font-weight:300; color:var(--mid); line-height:1.6;">Progressive flow design · Fast-track path · Offer automation</div>
+            <div style="position:absolute; right:-10px; top:50%; width:20px; height:20px; background:#fafaf8; border-right:1px solid var(--border); border-top:1px solid var(--border); transform:translateY(-50%) rotate(45deg); z-index:1;"></div>
+          </div>
+          <div style="flex:1; background:#ffffff; padding:1.25rem 1rem; position:relative; border-right:1px solid var(--border);">
+            <div style="font-size:0.6rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">04</div>
+            <div style="font-size:0.9rem; font-weight:500; color:var(--black); margin-bottom:0.4rem; font-family:var(--serif);">Ship</div>
+            <div style="font-size:0.72rem; font-weight:300; color:var(--mid); line-height:1.6;">Engineering collaboration · Weekly sales syncs · Iterative rollout</div>
+            <div style="position:absolute; right:-10px; top:50%; width:20px; height:20px; background:#ffffff; border-right:1px solid var(--border); border-top:1px solid var(--border); transform:translateY(-50%) rotate(45deg); z-index:1;"></div>
+          </div>
+          <div style="flex:1; background:var(--accent2); padding:1.25rem 1rem; border-left:2px solid var(--accent);">
+            <div style="font-size:0.6rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">05</div>
+            <div style="font-size:0.9rem; font-weight:500; color:var(--black); margin-bottom:0.4rem; font-family:var(--serif);">Measure</div>
+            <div style="font-size:0.72rem; font-weight:300; color:var(--mid); line-height:1.6;">₹25L+ revenue · 95% completion · 80% calls eliminated</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BUSINESS CONTEXT -->
+    <div class="cs-section">
+      <span class="cs-section-label">Business Context</span>
+      <hr class="cs-divider" />
+      <h2>A growth ceiling built into the process</h2>
+      <p>
+        HeyCoach sold paid DSA and System Design courses to software developers — primarily engineers at service companies like TCS, Infosys, and Wipro who wanted to break into product-based companies like Google, Amazon, and Flipkart. High intent, clear motivation, busy professionals.
+      </p>
+      <p>
+        The product was good. Marketing was working. Leads were coming in. But every single conversion required a human sales rep to get on a 45–60 minute call. The entire sales motion was manual, templated, and had no way to scale without hiring more people.
+      </p>
+      <div class="metrics-row">
+        <div class="metric-cell">
+          <div class="metric-val">45–60</div>
+          <div class="metric-lbl">Minutes per screening call</div>
+        </div>
+        <div class="metric-cell">
+          <div class="metric-val">100%</div>
+          <div class="metric-lbl">Conversions required a human</div>
+        </div>
+        <div class="metric-cell">
+          <div class="metric-val">0</div>
+          <div class="metric-lbl">Self-serve path available</div>
+        </div>
+      </div>
+      <div class="insight">
+        <p>The sales team was talented. But they were spending 80% of their time running the same 45-minute script on every lead — regardless of how ready that lead actually was to pay.</p>
+      </div>
+    </div>
+
+    <!-- PROBLEM -->
+    <div class="cs-section">
+      <span class="cs-section-label">Problem</span>
+      <hr class="cs-divider" />
+      <h2>Three problems, one broken process</h2>
+      <p>The manual sales call created a cascade of problems that compounded each other. Fixing one without fixing the others wouldn't move the needle.</p>
+
+      <div class="problem-list">
+        <div class="problem-item">
+          <div class="problem-text">
+            <strong>Scheduling delays killed high-intent momentum</strong>
+            A developer who was ready to buy on Tuesday had to wait until Thursday for a call. By then, they'd either gone cold or signed up with a competitor. The delay between intent and action was the single biggest conversion killer.
+          </div>
+        </div>
+        <div class="problem-item">
+          <div class="problem-text">
+            <strong>Drop-off during the wait was significant</strong>
+            Leads who filled the form and then waited for a call had a high chance of not showing up. Every handoff in the funnel — from form to call scheduling, from call to offer letter — was a potential exit point.
+          </div>
+        </div>
+        <div class="problem-item">
+          <div class="problem-text">
+            <strong>Sales team was running a repeatable script, not having conversations</strong>
+            After analysing multiple sales calls, a clear pattern emerged: 80% of the call followed the same decision tree. The same questions, the same qualification logic, the same offer generation. This wasn't relationship selling — it was a workflow that could be productised.
+          </div>
+        </div>
+      </div>
+
+      <h3>The key insight that unlocked the solution</h3>
+      <div class="insight">
+        <p>The sales call wasn't adding unique human value for most leads — it was executing a repeatable, templated decision tree. If we could replicate that logic in a product flow, the majority of users didn't need a human at all. The ones who did would get a better experience because the sales team would have time to actually focus on them.</p>
+      </div>
+
+      <div class="before-after">
+        <div class="ba-cell">
+          <div class="ba-label before">Before</div>
+          <div class="ba-text">Form → scheduling wait → 45–60 min call → manual offer letter → payment link sent separately → token payment. Average time from form to payment: days.</div>
+        </div>
+        <div class="ba-cell">
+          <div class="ba-label after">After</div>
+          <div class="ba-text">Form → self-screening questionnaire → automated offer letter → self-serve payment. High-intent users: minutes. Uncertain users: optional call still available.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SOLUTION -->
+    <div class="cs-section">
+      <span class="cs-section-label">Solution</span>
+      <hr class="cs-divider" />
+      <h2>A progressive self-serve journey</h2>
+      <p>
+        The solution wasn't to remove humans entirely — it was to remove humans from the path of users who didn't need them. The new flow was designed to be progressive: fast-track high-intent users to payment, and give uncertain users enough context to make their own decision — or escalate to a sales rep if they genuinely needed it.
+      </p>
+
+      <!-- New flow diagram -->
+      <div class="flow-diagram">
+        <div class="flow-header">The new automated journey</div>
+        <div class="flow-steps">
+          <div class="flow-step">
+            <div class="flow-node new-step"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1a7a40" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+            <div class="flow-step-label">Lead fills application form</div>
+          </div>
+          <div class="flow-edge new"></div>
+          <div class="flow-step">
+            <div class="flow-node new-step"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1a7a40" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
+            <div class="flow-step-label">Self-screening questionnaire</div>
+          </div>
+          <div class="flow-edge new"></div>
+          <div class="flow-step">
+            <div class="flow-node new-step"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1a7a40" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+            <div class="flow-step-label">Fast-track for high-intent users</div>
+          </div>
+          <div class="flow-edge new"></div>
+          <div class="flow-step">
+            <div class="flow-node new-step"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1a7a40" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+            <div class="flow-step-label">Auto offer letter generated</div>
+          </div>
+          <div class="flow-edge new"></div>
+          <div class="flow-step">
+            <div class="flow-node new-step"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1a7a40" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div>
+            <div class="flow-step-label">Self-serve token payment</div>
+          </div>
+          <div class="flow-edge new"></div>
+          <div class="flow-step">
+            <div class="flow-node new-step"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1a7a40" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="flow-step-label">Enrolled — no call needed</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="img-placeholder" style="aspect-ratio:16/7;">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#b0aea9" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+        <div class="img-placeholder-label">Onboarding flow screens</div>
+        <div class="img-placeholder-sub">Add screenshots of the self-screening questionnaire, offer letter, and payment screens here</div>
+      </div>
+
+      <h3>Progressive screening — not a gate, a path</h3>
+      <p>
+        The questionnaire was designed to feel like a personalised experience, not a form. Each question captured intent signals — experience level, goal timeline, budget readiness — and used that data to generate a tailored offer letter instantly. Users who showed high-intent markers could skip optional steps entirely with a fast-track path.
+      </p>
+
+      <h3>Automated offer letter generation</h3>
+      <p>
+        The offer letter was previously generated manually by the sales team after the call — another handoff, another delay. The new system generated it in real time at the end of the questionnaire, personalised to the user's stated profile. No human needed to review or send it.
+      </p>
+
+      <h3>End-to-end self-serve payment</h3>
+      <p>
+        Token payment — previously only possible after a call and a manually sent payment link — was integrated directly into the flow. A user could go from form submission to paid enrolment in a single session without any human interaction.
+      </p>
+    </div>
+
+    <!-- THE HARD PART -->
+    <div class="cs-section">
+      <span class="cs-section-label">The Hardest Part</span>
+      <hr class="cs-divider" />
+      <h2>The product worked. Getting people to use it didn't.</h2>
+      <p>
+        Shipping the technical flow was straightforward. The real challenge was internal adoption. The sales team had built their entire workflow — and in some ways their sense of professional value — around the screening call. Replacing that with an automated system felt threatening, not helpful.
+      </p>
+
+      <div class="challenge-block">
+        <p><strong>The risk:</strong> A product nobody internally trusts will never reach users. If the sales team routed leads around the new flow, kept scheduling calls, or undermined the system in any way, it would fail regardless of how good the product was. Sales team trust wasn't a nice-to-have. It was a launch requirement.</p>
+      </div>
+
+      <h3>How I approached it</h3>
+      <div class="problem-list">
+        <div class="problem-item">
+          <div class="problem-text">
+            <strong>Weekly sync meetings throughout the build</strong>
+            Brought the sales team into the process early and kept them there. Every decision that touched their workflow was discussed with them, not presented to them.
+          </div>
+        </div>
+        <div class="problem-item">
+          <div class="problem-text">
+            <strong>Actively collected and acted on their feedback</strong>
+            Every piece of feedback the sales team gave was triaged seriously. If they said the questionnaire was missing a question they always asked — we added it. If they felt the offer generation logic was wrong for edge cases — we fixed it. Iteration speed built credibility.
+          </div>
+        </div>
+        <div class="problem-item">
+          <div class="problem-text">
+            <strong>Framed it as freeing them, not replacing them</strong>
+            The narrative shifted from "the product is doing your job" to "the product handles the templated cases so you can focus on the complex, high-value ones." The 20% of leads who genuinely needed a nuanced conversation would now get a better version of the sales team — not a distracted one running their 50th screening call of the week.
+          </div>
+        </div>
+      </div>
+
+      <div class="insight">
+        <p>The biggest PM learning from this project: product adoption is a product problem. If internal stakeholders don't trust the system, the most technically sound solution fails at the last mile. Designing for adoption — not just for users — is a core PM responsibility.</p>
+      </div>
+    </div>
+
+    <!-- KEY DECISIONS -->
+    <div class="cs-section">
+      <span class="cs-section-label">Key Product Decisions</span>
+      <hr class="cs-divider" />
+      <h2>The decisions that shaped the flow</h2>
+
+      <div class="decision-block">
+        <div class="decision-header">
+          <div class="decision-num">1</div>
+          <div class="decision-title">Progressive screening over a single long form</div>
+        </div>
+        <div class="decision-body">
+          <p>The questionnaire could have been one 10-question form. Instead it was progressive — each step built on the previous answer, showed a progress indicator, and only asked what was relevant to that user's stated profile. This reduced perceived friction significantly. A user who indicated high readiness in step 2 was shown fewer steps overall. A user who indicated uncertainty was shown additional context and reassurance. The same information was collected — just in an experience that felt personalised rather than bureaucratic.</p>
+        </div>
+      </div>
+
+      <div class="decision-block">
+        <div class="decision-header">
+          <div class="decision-num">2</div>
+          <div class="decision-title">Keep the sales call as an option, not remove it entirely</div>
+        </div>
+        <div class="decision-body">
+          <p>The temptation was to remove the sales call completely and force everyone through the self-serve path. I pushed back on this. A segment of users — particularly those making a significant financial decision for the first time, or those with specific situations the questionnaire couldn't fully capture — genuinely needed a human conversation. Removing that option would have hurt conversion for that segment and undermined the sales team's trust in the new system. The call remained available as an opt-in for users who wanted it, surfaced at a specific point in the flow.</p>
+        </div>
+      </div>
+
+      <div class="decision-block">
+        <div class="decision-header">
+          <div class="decision-num">3</div>
+          <div class="decision-title">Real-time offer generation, not a delayed email</div>
+        </div>
+        <div class="decision-body">
+          <p>The original proposal was to generate the offer letter and email it within a few hours. I argued against this. The whole point of the self-serve flow was to remove the wait. Sending an email and asking the user to come back later reintroduced the exact drop-off risk we were solving for. The offer letter had to appear in the same session, on the same screen, immediately after the questionnaire. This required tighter integration with the offer generation logic but the conversion impact justified it.</p>
+        </div>
+      </div>
+
+      <div class="decision-block">
+        <div class="decision-header">
+          <div class="decision-num">4</div>
+          <div class="decision-title">Token payment first, full payment later</div>
+        </div>
+        <div class="decision-body">
+          <p>Full course payment upfront created too much friction for a first interaction. Token payment — a small amount to confirm intent and secure the enrolment — lowered the commitment threshold significantly. Users who paid the token were then nurtured toward full payment through a separate follow-up flow. This was a deliberate funnel decision: optimise the self-serve flow for activation (token), not for immediate revenue (full payment).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- OUTCOMES -->
+    <div class="cs-section">
+      <span class="cs-section-label">Outcomes</span>
+      <hr class="cs-divider" />
+      <h2>What the new flow delivered</h2>
+      <p>The automated onboarding flow shipped and ran for the duration of HeyCoach's operation. Three metrics capture the impact:</p>
+
+      <div class="metrics-row">
+        <div class="metric-cell">
+          <div class="metric-val">₹25L+</div>
+          <div class="metric-lbl">Incremental revenue generated</div>
+        </div>
+        <div class="metric-cell">
+          <div class="metric-val">95%</div>
+          <div class="metric-lbl">Onboarding completion rate</div>
+        </div>
+        <div class="metric-cell">
+          <div class="metric-val">↓ 80%</div>
+          <div class="metric-lbl">Reduction in manual sales calls</div>
+        </div>
+      </div>
+
+      <p>
+        The 95% completion rate was the number that mattered most to me. It meant the flow wasn't just technically functional — users were actually finishing it. A drop-off rate of only 5% across the entire automated journey validated that the progressive design, the fast-track path, and the in-session offer generation were working together as intended.
+      </p>
+
+      <p>
+        The 80% reduction in manual calls meant the sales team could redirect their time toward genuinely complex cases — users with edge-case situations, high-value leads who wanted a relationship, and post-enrolment support. The quality of those conversations improved because the volume of routine calls dropped.
+      </p>
+
+      <div class="insight">
+        <p>₹25L+ in incremental revenue is the business result. But the metric I'd track most carefully in a v2 would be time-from-form-to-payment. That number — measured in days before, and minutes after — is the clearest proof that the bottleneck was removed.</p>
+      </div>
+    </div>
+
+    <!-- REFLECTION -->
+    <div class="cs-section">
+      <span class="cs-section-label">Reflection</span>
+      <hr class="cs-divider" />
+      <h2>What this project taught me</h2>
+
+      <h3>Internal adoption is a product problem.</h3>
+      <p>The biggest lesson from this project wasn't about product design — it was about change management as a product discipline. A technically perfect solution that internal stakeholders don't trust will fail at the last mile. Designing for adoption — building trust through iteration speed, genuine incorporation of feedback, and reframing the narrative — is as much a PM skill as writing a PRD.</p>
+
+      <h3>Replicate the logic, not the format.</h3>
+      <p>The temptation when replacing a human process with a product is to recreate the human interaction digitally — a chatbot that asks the same questions a sales rep would ask, in the same order, in a conversational UI. The better approach is to understand the underlying decision logic and design a flow that achieves the same outcome in a format native to the product. Progressive screening isn't a sales call in a browser — it's a fundamentally different interaction that achieves the same goal more efficiently.</p>
+
+      <h3>What I'd do differently.</h3>
+      <p>I'd instrument time-to-payment from day one and run it as a live dashboard visible to both the product team and the sales team. Making the metric shared — and letting the sales team see in real time how the automated flow was performing — would have accelerated their trust in the system instead of building it gradually over weeks of syncs.</p>
+    </div>
+
+    <!-- NEXT CASE STUDY -->
+    <div class="next-cs">
+      <span class="next-cs-label">Next Case Study</span>
+      <hr class="next-cs-divider" />
+      <a href="luna.html" class="next-cs-card">
+        <div class="next-cs-thumb">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+            <div style="font-size:1.4rem;font-weight:700;color:#6b35c4;font-family:var(--serif);font-style:italic;">Luna</div>
+            <div style="font-size:0.55rem;color:#a855f7;font-family:var(--sans);letter-spacing:0.06em;text-transform:uppercase;">Gamified DSA Companion</div>
+          </div>
+        </div>
+        <div class="next-cs-info">
+          <div class="next-cs-tags">
+            <span class="next-cs-tag" style="background:#f3eeff;color:#6b35c4;">EdTech</span>
+            <span class="next-cs-tag" style="background:#f4f4f2;color:#767672;">0 → 1 Product</span>
+          </div>
+          <div class="next-cs-title">Luna — Gamified DSA Companion</div>
+          <div class="next-cs-desc">Built HeyCoach's freemium engagement product from zero — structured roadmap, habit loop, and 1v1 coding battles that achieved 52.7% monthly retention.</div>
+          <div class="next-cs-cta">Read case study →</div>
+        </div>
+      </a>
+    </div>
+
+  </div>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="wrap">
+      <span class="section-label">Get in touch</span>
+      <div class="contact-text">
+        <h2>Let's build something<br><em>worth using.</em></h2>
+        <p class="contact-sub">
+          Open to PM, Product Designer, and Product Analyst roles at product companies and fintechs.
+        </p>
+        <div class="contact-links" style="margin-top: 2.5rem;">
+          <a href="mailto:kanishkasingh7913@gmail.com" class="clink primary">Email me</a>
+          <a href="https://www.linkedin.com/in/kanishkasingh7913/" target="_blank" class="clink">LinkedIn ↗</a>
+          <a href="https://www.behance.net/kanishkasingh6/projects" target="_blank" class="clink">Behance ↗</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-wrap">
+      <div class="footer-bottom">
+        <p>Vibecoded with love</p>
+        <p>Copyright © 2026 Kanishka Singh, All right reserved</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

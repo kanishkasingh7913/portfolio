@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light only" />
+  <title>Luna — HeyCoach · Kanishka Singh</title>
+  <meta name="description" content="Luna — a gamified DSA companion built as HeyCoach's freemium growth engine. Case study by Kanishka Singh." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --black:   #111110;
+      --off:     #3a3a38;
+      --mid:     #767672;
+      --soft:    #b0aea9;
+      --border:  #e4e2de;
+      --white:   #ffffff;
+      --accent:  #0a7c6e;
+      --accent2: #e8f4f2;
+      --luna:    #0a7c6e;
+      --luna2:   #e8f4f2;
+      --serif:   'Instrument Serif', Georgia, serif;
+      --sans:    'DM Sans', system-ui, sans-serif;
+      --max:     740px;   /* Adjusted to match narrow column in reference image */
+      --wide:    1060px;
+      --pad:     clamp(1.25rem, 4vw, 2.5rem);
+    }
+
+    .wrap { max-width: var(--wide); margin: 0 auto; padding: 0 var(--pad); }
+
+    html { scroll-behavior: smooth; color-scheme: light only; background: #fff; }
+
+    body {
+      font-family: var(--sans);
+      background: #ffffff !important;
+      color: var(--black);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ── NAV ──────────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(255,255,255,0.96) !important;
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      max-width: var(--wide); margin: 0 auto; padding: 0 var(--pad);
+      height: 58px; display: flex; align-items: center; justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-family: var(--serif); font-size: 1.3rem; font-style: italic;
+      color: var(--black); letter-spacing: -0.01em;
+    }
+
+    .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+
+    .nav-links a {
+      font-size: 0.875rem; font-weight: 400; color: var(--mid); transition: color 0.18s;
+    }
+
+    .nav-links a:hover { color: var(--black); }
+
+    .nav-resume {
+      font-size: 0.875rem !important;
+      font-weight: 400 !important;
+      color: var(--mid) !important;
+      transition: color 0.18s, text-decoration 0.18s !important;
+      padding: 0 !important;
+      border: none !important;
+      border-radius: 0;
+    }
+
+    .nav-resume:hover {
+      color: var(--black) !important;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    /* ── PAGE WRAPPER ─────────────────────────────────────── */
+    .page {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: calc(58px + 4rem) var(--pad) 6rem;
+    }
+
+    /* ── HERO ─────────────────────────────────────────────── */
+    .cs-hero {
+      margin-bottom: 4rem;
+      opacity: 0; animation: fadeUp 0.65s 0.08s ease forwards;
+    }
+
+    .cs-eyebrow {
+      display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.5rem;
+    }
+
+    .cs-tag {
+      font-size: 0.67rem; font-weight: 500; letter-spacing: 0.08em;
+      text-transform: uppercase; padding: 3px 10px; border-radius: 100px;
+    }
+
+    .tag-domain { background: var(--luna2); color: var(--luna); }
+    .tag-type   { background: #f4f4f2; color: var(--mid); }
+    .tag-live   { background: #edfaf3; color: #1a7a40; }
+
+    .cs-hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      font-weight: 400; line-height: 1.1; letter-spacing: -0.025em;
+      color: var(--black); margin-bottom: 1.25rem;
+    }
+
+    .cs-hero-sub {
+      font-size: 1.1rem; font-weight: 300; color: var(--off);
+      line-height: 1.75; max-width: 640px;
+    }
+
+    /* Hero cover */
+    .cs-cover {
+      width: 100%;
+      border-radius: 12px; overflow: hidden;
+      position: relative; margin: 2.5rem 0 0;
+    }
+
+    .cs-cover-inner {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center; gap: 20px;
+    }
+
+    /* ── SECTION STRUCTURE (Isabelle's exact pattern) ─────── */
+    .cs-section {
+      margin-top: 4rem;
+      opacity: 0; animation: fadeUp 0.65s ease forwards;
+    }
+
+    .cs-section-label {
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--soft);
+      display: block; margin-bottom: 0.75rem;
+    }
+
+    .cs-divider {
+      border: none; border-top: 1px solid var(--border); margin-bottom: 2.5rem;
+    }
+
+    .cs-section h2 {
+      font-family: var(--serif);
+      font-size: 1.6rem; font-weight: 400;
+      color: var(--black); letter-spacing: -0.015em;
+      margin-bottom: 1.25rem; line-height: 1.2;
+    }
+
+    .cs-section h3 {
+      font-family: var(--serif);
+      font-size: 1.15rem; font-weight: 400;
+      color: var(--black); margin-bottom: 0.75rem;
+      margin-top: 2rem; line-height: 1.3;
+    }
+
+    .cs-section p {
+      font-size: 0.95rem; font-weight: 300;
+      color: var(--off); line-height: 1.85;
+      margin-bottom: 1rem;
+    }
+
+    .cs-section p:last-child { margin-bottom: 0; }
+
+    /* Overview table — like Isabelle's metadata block */
+    .overview-grid {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 0;
+      border: 1px solid var(--border);
+      border-radius: 10px; overflow: hidden;
+      margin-bottom: 2rem;
+    }
+
+    .ov-row {
+      display: contents;
+    }
+
+    .ov-key {
+      font-size: 0.78rem; font-weight: 500; color: var(--soft);
+      letter-spacing: 0.04em; padding: 0.9rem 1rem;
+      background: #fafaf8;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .ov-val {
+      font-size: 0.88rem; font-weight: 300; color: var(--off);
+      padding: 0.9rem 1rem;
+      border-bottom: 1px solid var(--border);
+      line-height: 1.6;
+    }
+
+    .ov-key:last-of-type, .ov-val:last-of-type { border-bottom: none; }
+
+    /* ── INSIGHT CALLOUT ──────────────────────────────────── */
+    .insight {
+      border-left: 3px solid var(--luna);
+      padding: 1rem 1.25rem;
+      background: var(--luna2);
+      border-radius: 0 8px 8px 0;
+      margin: 1.5rem 0;
+    }
+
+    .insight p {
+      font-size: 0.92rem; font-style: italic;
+      color: var(--off); margin: 0; line-height: 1.7;
+    }
+
+    /* ── STAT BLOCK ───────────────────────────────────────── */
+    .stat-row {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1px; background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 10px; overflow: hidden;
+      margin: 1.5rem 0;
+    }
+
+    .stat-cell {
+      background: #ffffff; padding: 1.5rem;
+      display: flex; flex-direction: column; gap: 4px;
+    }
+
+    .stat-value {
+      font-family: var(--serif); font-size: 2.2rem;
+      font-weight: 400; color: var(--luna); letter-spacing: -0.03em;
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.8rem; font-weight: 300; color: var(--mid);
+    }
+
+    /* ── PROBLEM LIST ─────────────────────────────────────── */
+    .problem-list {
+      display: flex; flex-direction: column; gap: 0.75rem;
+      margin: 1.25rem 0;
+    }
+
+    .problem-item {
+      display: flex; align-items: flex-start; gap: 0.75rem;
+      padding: 1rem 1.1rem;
+      border: 1px solid var(--border); border-radius: 8px;
+      background: #ffffff;
+    }
+
+    .problem-icon {
+      font-size: 1rem; flex-shrink: 0; margin-top: 1px;
+    }
+
+    .problem-text {
+      font-size: 0.88rem; font-weight: 300;
+      color: var(--off); line-height: 1.6;
+    }
+
+    .problem-text strong {
+      font-weight: 500; color: var(--black); display: block;
+      margin-bottom: 2px;
+    }
+
+    /* ── SCREEN MOCKUPS ───────────────────────────────────── */
+    .screen-wrap {
+      margin: 2rem 0;
+      border-radius: 12px; overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .screen-label {
+      font-size: 0.72rem; font-weight: 500; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--soft);
+      padding: 0.6rem 1rem;
+      background: #fafaf8;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .screen-body {
+      background: var(--luna2);
+      padding: 2rem;
+      display: flex; justify-content: center; align-items: center;
+    }
+
+    /* ── CAPTION ──────────────────────────────────────────── */
+    .caption {
+      font-size: 0.78rem; font-weight: 300; color: var(--soft);
+      text-align: center; margin-top: 1rem; font-style: italic;
+    }
+
+    /* ── IMAGE PLACEHOLDER ────────────────────────────────── */
+    .img-placeholder {
+      width: 100%; aspect-ratio: 16/9;
+      border: 2px dashed var(--border); border-radius: 10px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 0.6rem;
+      background: #fafaf8; margin: 1.5rem 0;
+    }
+
+    .img-placeholder-label {
+      font-size: 0.72rem; font-weight: 500; letter-spacing: 0.07em;
+      text-transform: uppercase; color: var(--soft);
+    }
+
+    .img-placeholder-sub { font-size: 0.68rem; color: var(--soft); opacity: 0.6; }
+
+    /* ── KEY DECISION BLOCK ───────────────────────────────── */
+    .decision-block {
+      border: 1px solid var(--border); border-radius: 10px;
+      overflow: hidden; margin: 1.75rem 0;
+    }
+
+    .decision-header {
+      padding: 0.9rem 1.25rem;
+      background: #fafaf8;
+      border-bottom: 1px solid var(--border);
+      display: flex; gap: 0.75rem; align-items: center;
+    }
+
+    .decision-num {
+      width: 22px; height: 22px; border-radius: 50%;
+      background: var(--luna); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.65rem; font-weight: 700; flex-shrink: 0;
+    }
+
+    .decision-title {
+      font-size: 0.88rem; font-weight: 500; color: var(--black);
+    }
+
+    .decision-body { padding: 1.1rem 1.25rem; }
+
+    .decision-body p {
+      font-size: 0.87rem; font-weight: 300; color: var(--off);
+      line-height: 1.75; margin: 0;
+    }
+
+    /* ── LEARNING ROW (before/after) ──────────────────────── */
+    .before-after {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1px; background: var(--border);
+      border: 1px solid var(--border); border-radius: 10px;
+      overflow: hidden; margin: 1.5rem 0;
+    }
+
+    .ba-cell {
+      background: #fff; padding: 1.1rem 1.25rem;
+    }
+
+    .ba-label {
+      font-size: 0.64rem; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; margin-bottom: 0.6rem;
+    }
+
+    .ba-label.before { color: #e03030; }
+    .ba-label.after  { color: #1a9e50; }
+
+    .ba-text {
+      font-size: 0.85rem; font-weight: 300; color: var(--off); line-height: 1.7;
+    }
+
+    /* ── METRICS ──────────────────────────────────────────── */
+    .metrics-row {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1px; background: var(--border);
+      border: 1px solid var(--border); border-radius: 10px;
+      overflow: hidden; margin: 1.5rem 0;
+    }
+
+    .metric-cell {
+      background: #fff; padding: 1.4rem; display: flex; flex-direction: column; gap: 4px;
+    }
+
+    .metric-val {
+      font-family: var(--serif); font-size: 1.8rem;
+      color: var(--luna); letter-spacing: -0.02em; line-height: 1;
+    }
+
+    .metric-lbl { font-size: 0.75rem; font-weight: 300; color: var(--mid); }
+
+    /* ── NEXT CASE STUDY (Isabelle's pattern) ─────────────── */
+    .next-cs {
+      margin-top: 5rem; padding-top: 3rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .next-cs-label {
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--soft);
+      display: block; margin-bottom: 0.75rem;
+    }
+
+    .next-cs-divider { border: none; border-top: 1px solid var(--border); margin-bottom: 2rem; }
+
+    .next-cs-card {
+      display: grid; grid-template-columns: 220px 1fr;
+      gap: 1.5rem; align-items: center;
+      border: 1px solid var(--border); border-radius: 12px;
+      overflow: hidden; text-decoration: none; color: inherit;
+      transition: box-shadow 0.2s;
+    }
+
+    .next-cs-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.07); }
+
+    .next-cs-thumb {
+      aspect-ratio: 4/3;
+      background: linear-gradient(135deg, #eefaf3, #c4ecd8);
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .next-cs-info { padding: 1.5rem 1.5rem 1.5rem 0; }
+
+    .next-cs-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 0.6rem; }
+
+    .next-cs-tag {
+      font-size: 0.64rem; font-weight: 500; letter-spacing: 0.07em;
+      text-transform: uppercase; padding: 2px 8px; border-radius: 100px;
+    }
+
+    .next-cs-title {
+      font-family: var(--serif); font-size: 1.2rem;
+      font-weight: 400; color: var(--black); line-height: 1.25; margin-bottom: 0.5rem;
+    }
+
+    .next-cs-desc { font-size: 0.82rem; font-weight: 300; color: var(--mid); line-height: 1.65; }
+
+    .next-cs-cta {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-size: 0.8rem; font-weight: 500; color: var(--accent);
+      margin-top: 0.9rem;
+    }
+
+    /* ── CONTACT FOOTER ───────────────────────────────────── */
+    #contact {
+      border-top: 1px solid var(--border);
+      padding: 5.5rem 0 3rem;
+      background: var(--black) !important;
+    }
+
+    #contact .section-label {
+      color: rgba(255,255,255,0.5);
+      border-bottom-color: rgba(255,255,255,0.15);
+    }
+
+    #contact h2 {
+      font-family: var(--serif);
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-weight: 400; letter-spacing: -0.02em;
+      color: #fff; margin-bottom: 0.75rem; line-height: 1.1;
+    }
+
+    #contact h2 em { font-style: italic; color: var(--accent); }
+
+    #contact .contact-sub {
+      font-size: 0.95rem; font-weight: 300; color: rgba(255,255,255,0.7);
+      margin-bottom: 2.5rem; max-width: 400px; line-height: 1.75;
+    }
+
+    .contact-links { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+    .clink {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-size: 0.875rem; font-weight: 500; padding: 0.65rem 1.4rem;
+      border-radius: 100px; border: 1px solid rgba(255,255,255,0.3);
+      color: #fff; background: transparent; transition: all 0.18s;
+    }
+
+    .clink:hover { background: rgba(255,255,255,0.1); border-color: #fff; }
+
+    .clink.primary { background: #fff; color: var(--black); border-color: #fff; }
+    .clink.primary:hover { background: #f0f0f0; border-color: #f0f0f0; }
+
+    /* ── FOOTER ───────────────────────────────────────────── */
+    footer {
+      padding: 0 0 2rem;
+      background: var(--black) !important;
+    }
+
+    .footer-wrap {
+      max-width: var(--wide); margin: 0 auto; padding: 0 var(--pad);
+      display: flex; flex-direction: column;
+    }
+
+    .footer-bottom {
+      display: grid; grid-template-columns: 1fr 1fr; align-items: center;
+      gap: 1rem;
+      border-top: 1px solid rgba(255,255,255,0.15);
+      padding-top: 1.5rem;
+    }
+
+    .footer-bottom p {
+      font-size: 0.75rem; color: rgba(255,255,255,0.5);
+    }
+    
+    .footer-bottom p:last-child {
+      text-align: right;
+    }
+
+    /* ── ANIMATIONS ───────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .cs-section:nth-child(1)  { animation-delay: 0.15s; }
+    .cs-section:nth-child(2)  { animation-delay: 0.22s; }
+    .cs-section:nth-child(3)  { animation-delay: 0.28s; }
+    .cs-section:nth-child(4)  { animation-delay: 0.32s; }
+    .cs-section:nth-child(5)  { animation-delay: 0.36s; }
+    .cs-section:nth-child(6)  { animation-delay: 0.40s; }
+    .cs-section:nth-child(7)  { animation-delay: 0.44s; }
+    .cs-section:nth-child(8)  { animation-delay: 0.48s; }
+    .cs-section:nth-child(9)  { animation-delay: 0.52s; }
+    .cs-section:nth-child(10) { animation-delay: 0.56s; }
+
+    @media (max-width: 600px) {
+      .before-after { grid-template-columns: 1fr; }
+      .metrics-row  { grid-template-columns: 1fr 1fr; }
+      .next-cs-card { grid-template-columns: 1fr; }
+      .next-cs-thumb { aspect-ratio: 16/7; }
+      .next-cs-info { padding: 0 1.25rem 1.25rem; }
+      .screens-row  { flex-direction: column; align-items: center; }
+    }
+
+    /* ── ZOOM ─────────────────────────────────────────────── */
+    .zoomable-img { cursor: zoom-in; }
+    
+    #zoom-overlay {
+      position: fixed; inset: 0;
+      background: rgba(255, 255, 255, 0.98);
+      z-index: 2000;
+      display: none; align-items: center; justify-content: center;
+      cursor: zoom-out;
+      opacity: 0; transition: opacity 0.3s ease;
+      padding: 2rem;
+    }
+    
+    #zoom-overlay.active { display: flex; opacity: 1; }
+    
+    #zoom-overlay img {
+      width: auto; height: auto;
+      max-width: 90vw; max-height: 90vh;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.12);
+      transform: scale(0.9) translateZ(0); 
+      transition: transform 0.3s ease;
+      image-rendering: -webkit-optimize-contrast;
+    }
+    
+    #zoom-overlay.active img { transform: scale(1) translateZ(0); }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Ks.</a>
+      <ul class="nav-links">
+        <li><a href="index.html#work">Work</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="resume.pdf" target="_blank" class="nav-resume">Resume</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="page">
+
+    <!-- HERO -->
+    <div class="cs-hero">
+      <div class="cs-eyebrow">
+        <span class="cs-tag tag-domain">EdTech</span>
+        <span class="cs-tag tag-type">Habit-First Design</span>
+        <span class="cs-tag tag-type">Engagement Loop</span>
+        <span class="cs-tag tag-live">Shipped · 2025</span>
+      </div>
+      <h1>Luna — Gamified DSA Companion</h1>
+      <p class="cs-hero-sub">
+        HeyCoach had a large DSA content library for paid users but no engagement layer for the others. Users arrived, felt overwhelmed, and left. Luna was built to fix that — a gamified, habit-first learning companion that sat at the top of the funnel and created a natural path toward paid courses.
+      </p>
+      <!-- Hero cover illustration -->
+      <div class="cs-cover">
+        <img src="luna-hero-collage-new.png" alt="Luna Mockup" style="width: 100%; height: auto; display: block;">
+      </div>
+    </div>
+
+    <!-- OVERVIEW -->
+    <div class="cs-section">
+      <span class="cs-section-label">Overview</span>
+      <hr class="cs-divider" />
+      <div class="overview-grid">
+        <span class="ov-key">Timeline</span>
+        <span class="ov-val">Apr – Jul 2025 · HeyCoach</span>
+        <span class="ov-key">Platform</span>
+        <span class="ov-val">Web + Mobile</span>
+        <span class="ov-key">My Role</span>
+        <span class="ov-val">Product Manager & Product Designer</span>
+        <span class="ov-key">Scope</span>
+        <span class="ov-val">Problem discovery · Competitive analysis · Product vision · MVP scoping · UX flows · Gamification design · Engineering & content collaboration</span>
+      </div>
+      <p>I owned Luna end-to-end for the MVP — from problem discovery and competitive analysis through to UX flows, gamification system design, and collaboration with engineering and content teams to ship.</p>
+    </div>
+
+    <!-- SUMMARY CARD -->
+    <div class="cs-section">
+      <span class="cs-section-label">Gist</span>
+      <hr class="cs-divider" />
+      <div style="border:1px solid var(--luna); border-radius:12px; overflow:hidden; background:var(--luna2);">
+        <div style="padding:1.5rem 1.75rem; display:grid; grid-template-columns:1fr 1fr; gap:1.5rem 2.5rem;">
+          <div>
+            <div style="font-size:0.68rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--luna); margin-bottom:0.5rem;">The problem</div>
+            <ul style="font-size:0.88rem; font-weight:300; color:var(--off); line-height:1.6; margin:0; padding-left:1.2rem;">
+              <li>High churn among non-paid leads due to lack of entry-level engagement.</li>
+              <li>Unstructured flat problem lists caused "choice paralysis" for new learners.</li>
+              <li>No mechanism to experience "progress" before committing to a paid course.</li>
+            </ul>
+          </div>
+          <div>
+            <div style="font-size:0.68rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--luna); margin-bottom:0.5rem;">What I built</div>
+            <ul style="font-size:0.88rem; font-weight:300; color:var(--off); line-height:1.6; margin:0; padding-left:1.2rem;">
+              <li>A structured Learning Roadmap to visualize end-to-end DSA progression.</li>
+              <li>A Daily Habit Loop (Streak/XP) to encourage consistent return visits.</li>
+              <li>Interactive Quizzes and 1v1 Battles to gamify core knowledge retention.</li>
+            </ul>
+          </div>
+          <div>
+            <div style="font-size:0.68rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--luna); margin-bottom:0.5rem;">Key decisions</div>
+            <ul style="font-size:0.88rem; font-weight:300; color:var(--off); line-height:1.6; margin:0; padding-left:1.2rem;">
+              <li>Roadmap-first over Search-first to reduce decision fatigue for beginners.</li>
+              <li>Direct 1v1 Battles instead of passive Leaderboards to drive urgent engagement.</li>
+              <li>Built on existing infra (internal editor) to ship fast and validate the core loop.</li>
+            </ul>
+          </div>
+          <div>
+            <div style="font-size:0.68rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--luna); margin-bottom:0.5rem;">Results</div>
+            <ul style="font-size:0.88rem; font-weight:300; color:var(--off); line-height:1.6; margin:0; padding-left:1.2rem;">
+              <li>875+ unique users engaged within the first month of release.</li>
+              <li>52.7% D30 retention—significantly outperforming the benchmark.</li>
+              <li>544+ problems solved with 200+ Battles initiated by active users.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROCESS OVERVIEW -->
+    <div class="cs-section">
+      <span class="cs-section-label">Process</span>
+      <hr class="cs-divider" />
+      <h2>How I approached it</h2>
+      <p>Luna was built iteratively across three phases. The process followed a double-diamond shape — research and definition first, then rapid scoping and execution, then measurement and reflection.</p>
+
+      <!-- Process diagram -->
+      <div style="margin: 2rem 0; overflow-x: auto;">
+        <div style="display: flex; align-items: stretch; gap: 0; min-width: 560px; border: 1px solid var(--border); border-radius: 12px; overflow: hidden;">
+
+          <!-- Step 1 -->
+          <div style="flex:1; background:#fafaf8; padding:1.25rem 1rem; position:relative; border-right:1px solid var(--border);">
+            <div style="font-size:0.6rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--luna); margin-bottom:0.5rem;">01</div>
+            <div style="font-size:0.9rem; font-weight:500; color:var(--black); margin-bottom:0.4rem; font-family:var(--serif);">Research</div>
+            <div style="font-size:0.72rem; font-weight:300; color:var(--mid); line-height:1.6;">Existing data · Support feedback · Competitive analysis</div>
+            <!-- Arrow -->
+            <div style="position:absolute; right:-10px; top:50%; transform:translateY(-50%); width:20px; height:20px; background:#fafaf8; border-right:1px solid var(--border); border-top:1px solid var(--border); transform:translateY(-50%) rotate(45deg); z-index:1;"></div>
+          </div>
+
+          <!-- Step 2 -->
+          <div style="flex:1; background:#ffffff; padding:1.25rem 1rem; position:relative; border-right:1px solid var(--border);">
+            <div style="font-size:0.6rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--luna); margin-bottom:0.5rem;">02</div>
+            <div style="font-size:0.9rem; font-weight:500; color:var(--black); margin-bottom:0.4rem; font-family:var(--serif);">Define</div>
+            <div style="font-size:0.72rem; font-weight:300; color:var(--mid); line-height:1.6;">Problem framing · Product vision · Success metrics</div>
+            <div style="position:absolute; right:-10px; top:50%; transform:translateY(-50%); width:20px; height:20px; background:#ffffff; border-right:1px solid var(--border); border-top:1px solid var(--border); transform:translateY(-50%) rotate(45deg); z-index:1;"></div>
+          </div>
+
+          <!-- Step 3 -->
+          <div style="flex:1; background:#fafaf8; padding:1.25rem 1rem; position:relative; border-right:1px solid var(--border);">
+            <div style="font-size:0.6rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--luna); margin-bottom:0.5rem;">03</div>
+            <div style="font-size:0.9rem; font-weight:500; color:var(--black); margin-bottom:0.4rem; font-family:var(--serif);">Scope</div>
+            <div style="font-size:0.72rem; font-weight:300; color:var(--mid); line-height:1.6;">MVP scoping · 3-phase roadmap · Cut decisions</div>
+            <div style="position:absolute; right:-10px; top:50%; transform:translateY(-50%); width:20px; height:20px; background:#fafaf8; border-right:1px solid var(--border); border-top:1px solid var(--border); transform:translateY(-50%) rotate(45deg); z-index:1;"></div>
+          </div>
+
+          <!-- Step 4 -->
+          <div style="flex:1; background:#ffffff; padding:1.25rem 1rem; position:relative; border-right:1px solid var(--border);">
+            <div style="font-size:0.6rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--luna); margin-bottom:0.5rem;">04</div>
+            <div style="font-size:0.9rem; font-weight:500; color:var(--black); margin-bottom:0.4rem; font-family:var(--serif);">Design</div>
+            <div style="font-size:0.72rem; font-weight:300; color:var(--mid); line-height:1.6;">UX flows · Gamification system · Screen design</div>
+            <div style="position:absolute; right:-10px; top:50%; transform:translateY(-50%); width:20px; height:20px; background:#ffffff; border-right:1px solid var(--border); border-top:1px solid var(--border); transform:translateY(-50%) rotate(45deg); z-index:1;"></div>
+          </div>
+
+          <!-- Step 5 -->
+          <div style="flex:1; background:#fafaf8; padding:1.25rem 1rem; position:relative; border-right:1px solid var(--border);">
+            <div style="font-size:0.6rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--luna); margin-bottom:0.5rem;">05</div>
+            <div style="font-size:0.9rem; font-weight:500; color:var(--black); margin-bottom:0.4rem; font-family:var(--serif);">Ship</div>
+            <div style="font-size:0.72rem; font-weight:300; color:var(--mid); line-height:1.6;">Eng collaboration · 3 phased releases · Apr–Jul 2025</div>
+            <div style="position:absolute; right:-10px; top:50%; transform:translateY(-50%); width:20px; height:20px; background:#fafaf8; border-right:1px solid var(--border); border-top:1px solid var(--border); transform:translateY(-50%) rotate(45deg); z-index:1;"></div>
+          </div>
+
+          <!-- Step 6 -->
+          <div style="flex:1; background:var(--luna2); padding:1.25rem 1rem; border-left:2px solid var(--luna);">
+            <div style="font-size:0.6rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--luna); margin-bottom:0.5rem;">06</div>
+            <div style="font-size:0.9rem; font-weight:500; color:var(--black); margin-bottom:0.4rem; font-family:var(--serif);">Measure</div>
+            <div style="font-size:0.72rem; font-weight:300; color:var(--mid); line-height:1.6;">875 users · 52.7% retention · Battles signal</div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTEXT -->
+    <div class="cs-section">
+      <span class="cs-section-label">Business Context</span>
+      <hr class="cs-divider" />
+      <h2>A funnel problem disguised as a content problem</h2>
+      <p>
+        HeyCoach was a paid edtech startup offering DSA and System Design courses to software engineers preparing for product company interviews. The core product was strong — structured curriculum, in-house coding editor, mentor support. But the business had a conversion problem that no amount of content investment was solving.
+      </p>
+      <p>
+        Marketing was acquiring leads. Those leads were landing on the website, browsing the problem library, and leaving — without buying. The existing problem library was open to all users but offered no structure, no guidance, and no reason to return. First-time visitors had no way to experience progress before being asked to spend money.
+      </p>
+
+      <div class="metrics-row" style="grid-template-columns: repeat(2,1fr);">
+        <div class="metric-cell">
+          <div class="metric-val">~5–8%</div>
+          <div class="metric-lbl">Estimated lead-to-trial conversion (industry benchmark)</div>
+        </div>
+        <div class="metric-cell">
+          <div class="metric-val">0</div>
+          <div class="metric-lbl">Engagement loops for early-stage learners</div>
+        </div>
+      </div>
+
+      <div class="insight">
+        <p>"There's no product that lets a user experience progress before committing to a long-form course. We need something that keeps them coming back." — Founder brief</p>
+      </div>
+
+      <p>
+        The business case for Luna was clear: if we could keep leads engaged long enough to experience value, conversion to paid would follow. Luna wasn't a product to monetise directly — it was a product to create the conditions for monetisation.
+      </p>
+    </div>
+
+    <!-- PROBLEM + RESEARCH merged -->
+    <div class="cs-section">
+      <span class="cs-section-label">Problem & Research</span>
+      <hr class="cs-divider" />
+      <h2>Two problems, one root cause</h2>
+      <p>Before scoping anything, I mapped the problem from two angles — business and user. Both pointed to the same gap: the absence of structure, feedback, and visible progress.</p>
+
+      <h3>The business problem</h3>
+      <div class="before-after">
+        <div class="ba-cell">
+          <div class="ba-label before">Current state</div>
+          <div class="ba-text">Marketing lead → HeyCoach website → low engagement → no reason to return → churns without converting</div>
+        </div>
+        <div class="ba-cell">
+          <div class="ba-label after">Desired state</div>
+          <div class="ba-text">Marketing lead → Luna → structured guided experience → daily habit → natural conversion to paid DSA course</div>
+        </div>
+      </div>
+
+      <h3>What the data and feedback showed</h3>
+      <p>HeyCoach had existing learner feedback, support threads, and usage data from the problem library. Three signals kept appearing:</p>
+
+      <div class="problem-list">
+        <div class="problem-item">
+          <div class="problem-text">
+            <strong>Most users never made it past the first 5 problems</strong>
+            A sharp cliff after initial exploration. Users who didn't solve a problem in their first session almost never returned — a classic activation failure.
+          </div>
+        </div>
+        <div class="problem-item">
+          <div class="problem-text">
+            <strong>Users browsed categories but didn't commit to a path</strong>
+            Navigation data showed users clicking across multiple topic categories without completing anything. The problem wasn't finding content — it was knowing where to start.
+          </div>
+        </div>
+        <div class="problem-item">
+          <div class="problem-text">
+            <strong>"Don't know where to start" was the most common support theme</strong>
+            This phrase appeared repeatedly across early learner feedback. The gap was structure, not content.
+          </div>
+        </div>
+      </div>
+
+      <h3>What competitors were missing</h3>
+      <div class="metrics-row" style="grid-template-columns: repeat(3,1fr);">
+        <div class="metric-cell" style="background:#fafaf8;">
+          <div class="metric-val" style="font-size:1rem; color:var(--black);">LeetCode</div>
+          <ul style="font-size:0.75rem; font-weight:300; color:var(--mid); line-height:1.6; margin:6px 0 0; padding-left:1rem; text-align:left;">
+            <li>Overwhelming for beginners.</li>
+            <li>No habit mechanics.</li>
+          </ul>
+        </div>
+        <div class="metric-cell" style="background:#fafaf8;">
+          <div class="metric-val" style="font-size:1rem; color:var(--black);">GeeksForGeeks</div>
+          <ul style="font-size:0.75rem; font-weight:300; color:var(--mid); line-height:1.6; margin:6px 0 0; padding-left:1rem; text-align:left;">
+            <li>Content-heavy, article-first.</li>
+            <li>No structure for practice.</li>
+            <li>No progress visibility.</li>
+          </ul>
+        </div>
+        <div class="metric-cell" style="background:var(--luna2);">
+          <div class="metric-val" style="font-size:1rem; color:var(--luna);">The gap</div>
+          <ul style="font-size:0.75rem; font-weight:300; color:var(--mid); line-height:1.6; margin:6px 0 0; padding-left:1rem; text-align:left;">
+            <li>No platform combined structured progression + habit mechanics.</li>
+            <li>Missing concept reinforcement in one lightweight free product.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="insight">
+        <p>Product vision: Build a gamified DSA companion that transforms interview prep from a checklist of problems into a guided, habit-forming learning journey — using HeyCoach's existing content, not new investment.</p>
+      </div>
+    </div>
+
+    <!-- SOLUTION -->
+    <div class="cs-section">
+      <span class="cs-section-label">Solution & Roadmap</span>
+      <hr class="cs-divider" />
+      <h2>Three phases, one core loop</h2>
+      <p>
+        The MVP constraint was clear: use HeyCoach's existing problem library and code editor. Don't ask engineering to rebuild infrastructure — layer a new experience on top of what existed. This decision cut the MVP timeline significantly and let us validate the engagement model before investing in new content.
+      </p>
+      <p>
+        I scoped Luna into three phases based on a simple principle: ship the core learning loop first, then add engagement mechanics, then add depth. Each phase had to prove itself before the next was built.
+      </p>
+
+      <!-- Phase timeline -->
+      <div style="margin: 2rem 0; display:flex; flex-direction:column; gap:1px; border:1px solid var(--border); border-radius:12px; overflow:hidden; background:var(--border);">
+
+        <div style="background:#ffffff; padding:1.25rem 1.5rem; display:grid; grid-template-columns:120px 1fr; gap:1.5rem; align-items:start;">
+          <div>
+            <div style="font-size:0.65rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--luna); margin-bottom:4px;">Phase 1 — MVP</div>
+            <div style="font-size:0.78rem; font-weight:500; color:var(--black);">Core loop</div>
+          </div>
+          <div>
+            <div style="font-size:0.88rem; font-weight:500; color:var(--black); margin-bottom:4px;">Roadmap + Problems + Quizzes</div>
+            <div style="font-size:0.82rem; font-weight:300; color:var(--mid); line-height:1.65;">The minimum viable learning experience. A structured visual roadmap over HeyCoach's existing problem library, with topic-locked quizzes to reinforce concepts. Built on existing infrastructure — no new content required. Hypothesis: structure alone would improve engagement over the flat problem list.</div>
+          </div>
+        </div>
+
+        <div style="background:#fafaf8; padding:1.25rem 1.5rem; display:grid; grid-template-columns:120px 1fr; gap:1.5rem; align-items:start;">
+          <div>
+            <div style="font-size:0.65rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:4px;">Phase 2</div>
+            <div style="font-size:0.78rem; font-weight:500; color:var(--black);">Engagement layer</div>
+          </div>
+          <div>
+            <div style="font-size:0.88rem; font-weight:500; color:var(--black); margin-bottom:4px;">Streaks + XP + Battles</div>
+            <div style="font-size:0.82rem; font-weight:300; color:var(--mid); line-height:1.65;">Added once the core loop was validated. Streaks and XP created a habit loop and daily return motivation. Battles were a deliberate social bet — a 1v1 coding challenge mode where users could share a link to play against a friend, introducing viral distribution without a formal referral system.</div>
+          </div>
+        </div>
+
+        <div style="background:#ffffff; padding:1.25rem 1.5rem; display:grid; grid-template-columns:120px 1fr; gap:1.5rem; align-items:start;">
+          <div>
+            <div style="font-size:0.65rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:#059669; margin-bottom:4px;">Phase 3</div>
+            <div style="font-size:0.78rem; font-weight:500; color:var(--black);">Depth layer</div>
+          </div>
+          <div>
+            <div style="font-size:0.88rem; font-weight:500; color:var(--black); margin-bottom:4px;">Company Playlists + Learning Paths</div>
+            <div style="font-size:0.82rem; font-weight:300; color:var(--mid); line-height:1.65;">Added for goal-oriented users who wanted targeted prep. Company-specific playlists (Google, Amazon, Microsoft, Adobe, Meta) gave users a focused track. Learning paths — starting with DSA only, tested at beginner/intermediate/advanced — added structured long-form depth. Planned to expand to System Design and more tracks in the next iteration.</div>
+          </div>
+        </div>
+
+      </div>
+
+      <h3>What was deliberately left out of MVP</h3>
+      <p>Scoping is a PM's core skill. These features were discussed and explicitly excluded from MVP to keep the loop tight:</p>
+      <div class="problem-list">
+        <div class="problem-item">
+          <div class="problem-text">
+            <strong>Social feed / leaderboards — cut from Phase 1</strong>
+            Would have added scope and distracted from the core learning loop. Moved to Phase 2 as Battles instead — a simpler, higher-intent social mechanic.
+          </div>
+        </div>
+        <div class="problem-item">
+          <div class="problem-text">
+            <strong>New content creation — cut entirely from MVP</strong>
+            Luna was explicitly scoped to use existing HeyCoach content. New modules, new problem sets, and new byte lessons required content team bandwidth that wasn't available for v1.
+          </div>
+        </div>
+        <div class="problem-item">
+          <div class="problem-text">
+            <strong>Multiple learning paths — limited to DSA only in Phase 3</strong>
+            We had System Design content that could have been a second path. Held it back to validate the path format on a single topic before scaling the model.
+          </div>
+        </div>
+      </div>
+
+      <h3>The screens</h3>
+      <p>Below are the three core screens from Phase 1 — the MVP learning loop.</p>
+
+
+      <h3>Visual DSA roadmap</h3>
+      <p>
+        Replaced the flat problem list with a structured visual path through core DSA topics. Users could see exactly where they were, what they'd completed, and what came next — reducing overwhelm and eliminating the "where do I start?" paralysis.
+      </p>
+
+      <div class="screen-wrap">
+        <div class="screen-label">Screen 1 — DSA Roadmap</div>
+        <div class="screen-body" style="background:var(--luna2); padding:1rem;">
+          <img src="luna-roadmap.png" alt="Luna DSA Roadmap" style="width:100%; border-radius:8px; box-shadow:0 4px 20px rgba(0,0,0,0.08);">
+        </div>
+      </div>
+      <p class="caption">Roadmap view — locked/unlocked progression removes decision fatigue. Users always know what's next.</p>
+
+      <h3>Practice Problems</h3>
+      <p>
+        The core of the learning loop. A focus-driven IDE experience that bridges the gap between theory and practical coding. Each problem is curated to reinforce the concepts learned in the roadmap, with real-time feedback and detailed solutions.
+      </p>
+
+      <div class="screen-wrap">
+        <div class="screen-label">Screen 2 — Practice Problems Flow</div>
+        <div class="screen-body" style="background:var(--luna2); padding:1rem; min-height:320px;">
+          <img src="luna-problems.png" alt="Luna Practice Problems Flow" style="width:100%; border-radius:8px; box-shadow:0 4px 20px rgba(0,0,0,0.08);">
+        </div>
+      </div>
+      <p class="caption">Practice flow — comprehensive problem sets, integrated IDE, and instant submission feedback.</p>
+
+      <h3>Topic-wise quizzes</h3>
+      <p>
+        Short, concept-testing quizzes after each topic. The goal wasn't assessment — it was reinforcement. Quizzes were capped at 5 questions and awarded XP on completion, making them feel like a reward rather than a test.
+      </p>
+
+      <div class="screen-wrap">
+        <div class="screen-label">Screen 3 — Quiz / MCQ</div>
+        <div class="screen-body" style="background:var(--luna2); padding:1rem; min-height:320px;">
+          <img src="luna-quiz.png" alt="Luna Quiz Flow" style="width:100%; border-radius:8px; box-shadow:0 4px 20px rgba(0,0,0,0.08);">
+        </div>
+      </div>
+      <p class="caption">Quiz screen — progress bar, clear feedback states, XP reward on completion. Capped at 5 questions to feel completable.</p>
+
+      <h3>Curated learning playlists + byte-sized lessons</h3>
+      <p>
+        Company-specific preparation playlists (Google, Amazon, Flipkart) gave goal-oriented users a focused track. Byte-sized lessons — 2–3 minute concept explanations — were embedded in the daily task list to build conceptual understanding without interrupting the coding flow.
+      </p>
+
+      <div class="screen-wrap">
+        <div class="screen-label">Screen 4 — Learning Playlists</div>
+        <div class="screen-body" style="background:var(--luna2); padding:1rem;">
+          <img src="luna-playlist.png" alt="Luna Learning Playlists" style="width:100%; border-radius:8px; box-shadow:0 4px 20px rgba(0,0,0,0.08);">
+        </div>
+      </div>
+
+      <div class="screen-wrap" style="margin-top:1.5rem;">
+        <div class="screen-label">Screen 5 — 1v1 Battles</div>
+        <div class="screen-body" style="background:var(--luna2); padding:1rem; min-height:260px;">
+          <img src="luna-battle.png" alt="Luna 1v1 Battles" style="width:100%; border-radius:8px; box-shadow:0 4px 20px rgba(0,0,0,0.08);">
+        </div>
+      </div>
+
+      <div class="screen-wrap" style="margin-top:1.5rem;">
+        <div class="screen-label">Screen 6 — Learning Path</div>
+        <div class="screen-body" style="background:var(--luna2); padding:1rem; min-height:260px;">
+          <img src="luna-path-1.png" alt="Luna Learning Path" style="width:100%; border-radius:8px; box-shadow:0 4px 20px rgba(0,0,0,0.08);">
+        </div>
+      </div>
+      
+      <div class="screen-wrap" style="margin-top:1.5rem;">
+        <div class="screen-label">Screen 7 — Learning Path Detail</div>
+        <div class="screen-body" style="background:var(--luna2); padding:1rem; min-height:260px;">
+          <img src="luna-path-2.png" alt="Luna Learning Path Details" style="width:100%; border-radius:8px; box-shadow:0 4px 20px rgba(0,0,0,0.08);">
+        </div>
+      </div>
+
+    </div>
+
+    <!-- KEY DECISIONS -->
+    <div class="cs-section">
+      <span class="cs-section-label">Key Product Decisions</span>
+      <hr class="cs-divider" />
+      <h2>The decisions that shaped Luna</h2>
+      <p>These were the four decisions where I had to make a real call — not just execute a brief, but choose a direction when reasonable alternatives existed.</p>
+
+      <div class="decision-block">
+        <div class="decision-header">
+          <div class="decision-num">1</div>
+          <div class="decision-title">Build on existing infrastructure, not from scratch</div>
+        </div>
+        <div class="decision-body">
+          <p>Luna's MVP was scoped entirely around what HeyCoach already had. This was a deliberate PM call: validate the engagement model first, invest in new content only after. It cut the timeline significantly and meant we could test the core hypothesis without committing to infrastructure that might not need to exist.</p>
+        </div>
+      </div>
+
+      <div class="decision-block">
+        <div class="decision-header">
+          <div class="decision-num">2</div>
+          <div class="decision-title">Roadmap-first over search-first</div>
+        </div>
+        <div class="decision-body">
+          <p>The default mental model for a DSA platform is a search bar. We deliberately didn't make this the entry point. Luna opened on the roadmap. This was a controversial call — search-first felt more flexible. But the data was clear: users weren't failing because they couldn't find problems. They were failing because they didn't know where to start. The 45% roadmap engagement in the first month validated it.</p>
+        </div>
+      </div>
+
+      <div class="decision-block">
+        <div class="decision-header">
+          <div class="decision-num">3</div>
+          <div class="decision-title">Battles over leaderboards</div>
+        </div>
+        <div class="decision-body">
+          <p>Phase 2 needed a social layer. The obvious choice was a leaderboard — common in edtech, low lift, familiar. I argued against it. Leaderboards motivate the top 10% and demotivate everyone else. Battles were peer-to-peer, opt-in, and shareable via link — social motivation that worked between specific people, not anonymous rankings. 208 battles from 24 users became Luna's highest per-user engagement signal.</p>
+        </div>
+      </div>
+
+      <div class="decision-block">
+        <div class="decision-header">
+          <div class="decision-num">4</div>
+          <div class="decision-title">Quizzes as reinforcement, not assessment</div>
+        </div>
+        <div class="decision-body">
+          <p>Quiz questions were based on the same concepts as the coding problems — just tested differently. In real interviews, candidates get conceptual questions around the problems they solve, not just "write the code." Capping quizzes at 5 questions and awarding XP on completion shifted the psychology: a quiz felt like a reward for finishing a topic, not a gate to pass through.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- OUTCOMES -->
+    <div class="cs-section">
+      <span class="cs-section-label">Outcomes</span>
+      <hr class="cs-divider" />
+      <h2>What the data showed</h2>
+      <p>
+        Luna ran through the summer of 2025 across three shipped phases. The product didn't reach the stage where paid conversion could be cleanly measured — but the engagement data told a clear story about what was working and what the next iteration would have tackled.
+      </p>
+
+      <!-- Primary metrics -->
+      <div class="metrics-row" style="grid-template-columns: repeat(3,1fr);">
+        <div class="metric-cell">
+          <div class="metric-val">875</div>
+          <div class="metric-lbl">Unique users (peak month)</div>
+        </div>
+        <div class="metric-cell">
+          <div class="metric-val">52.7%</div>
+          <div class="metric-lbl">Monthly retention rate</div>
+        </div>
+        <div class="metric-cell">
+          <div class="metric-val">6.5 min</div>
+          <div class="metric-lbl">Avg active session time</div>
+        </div>
+      </div>
+
+
+      <!-- Secondary metrics -->
+      <h3>Engagement across features</h3>
+      <p>Across the product's active period, 186 users engaged with problems and quizzes — generating real usage data across all core features:</p>
+
+      <div class="metrics-row" style="grid-template-columns: repeat(2,1fr);">
+        <div class="metric-cell">
+          <div class="metric-val">544</div>
+          <div class="metric-lbl">Problems solved</div>
+        </div>
+        <div class="metric-cell">
+          <div class="metric-val">298</div>
+          <div class="metric-lbl">Quiz attempts</div>
+        </div>
+      </div>
+
+      <!-- Battles callout -->
+      <h3>1v1 Battles — the surprise signal</h3>
+      <p>
+        The battles feature — a 1v1 coding challenge mode — generated a disproportionately high engagement signal. 24 users created 208 battles between them. That's 8.7 battles per active user, far higher than any other feature's per-user engagement. It was the strongest indicator that social and competitive mechanics deserved more surface area in v2.
+      </p>
+
+      <div class="insight">
+        <p>208 battles from 24 users was the clearest signal of what to build next — a social competitive layer. Users who engaged with battles were self-selecting as the most motivated segment of Luna's audience.</p>
+      </div>
+
+      <!-- Gamification data -->
+      <h3>Gamification — what the streak and XP data showed</h3>
+      <p>
+        The gamification system had a wide spread of engagement. The highest XP earned was 950, with an average of 278 across active users — showing meaningful differentiation between casual and committed users. The streak data told the harder story: the highest streak was 32 days, but the average was 1.55 days across 137 tracked users.
+      </p>
+
+      <div class="before-after">
+        <div class="ba-cell">
+          <div class="ba-label before">The gap</div>
+          <div class="ba-text">Average streak: 1.55 days. Most users opened Luna, engaged once or twice, then didn't return consistently. The streak mechanic wasn't strong enough on its own to form a daily habit.</div>
+        </div>
+        <div class="ba-cell">
+          <div class="ba-label after">The signal</div>
+          <div class="ba-text">Highest streak: 32 days. The users who formed a habit, formed a strong one. The product worked — but the path to habit formation needed to be shorter and more deliberate for new users.</div>
+        </div>
+      </div>
+
+      <p>
+        This gap between average and top performers is the most honest summary of where Luna was as a product: strong for motivated users, not yet strong enough to convert passive users into consistent learners. That was the problem I'd have tackled in v2.
+      </p>
+    </div>
+
+    <!-- LEARNINGS -->
+    <div class="cs-section">
+      <span class="cs-section-label">Reflection</span>
+      <hr class="cs-divider" />
+      <h2>What Luna taught me</h2>
+
+      <h3>Products must earn trust before asking for anything.</h3>
+      <p>Luna couldn't ask for money, email, or time before showing value. That constraint made the product better. Every feature had to justify itself by what it gave users, not what it asked of them.</p>
+
+      <h3>Good gamification is psychology, not points.</h3>
+      <p>A 32-day highest streak versus a 1.55-day average means the mechanic worked brilliantly for already-motivated users — but didn't pull in the users who needed the most help. V2 would have focused on the critical first 7 days: tighter onboarding, a lower bar for the first streak milestone, and push notifications specifically designed for day-2 and day-3 re-engagement.</p>
+
+      <h3>Build the analytics layer before the feature layer.</h3>
+      <p>Luna had 52.7% monthly retention — a genuinely strong number. But I couldn't tell leadership how many retained Luna users eventually bought a course, because we launched without clean attribution tracking. The engagement story was strong. The business story was incomplete. Next time, analytics setup comes before feature scoping.</p>
+
+      <h3>What I'd do differently in v2.</h3>
+      <p>Make Battles a core surface, not a side mode. Put the first-week onboarding loop under a microscope before any new features. And ship with a funnel dashboard wired to downstream conversion from day one.</p>
+    </div>
+
+    <!-- NEXT CASE STUDY -->
+    <div class="next-cs">
+      <span class="next-cs-label">Next Case Study</span>
+      <hr class="next-cs-divider" />
+      <a href="onboarding.html" class="next-cs-card">
+        <div class="next-cs-thumb">
+          <!-- Onboarding flow art -->
+          <div style="display:flex; align-items:center; gap:0;">
+            <div style="width:34px;height:34px;border-radius:50%;background:rgba(26,138,48,0.12);border:2px solid rgba(26,138,48,0.45);display:flex;align-items:center;justify-content:center;font-size:0.65rem;font-weight:700;color:#1a8a30;font-family:var(--sans);">✓</div>
+            <div style="width:22px;height:2px;background:rgba(26,138,48,0.4);"></div>
+            <div style="width:34px;height:34px;border-radius:50%;background:rgba(26,138,48,0.12);border:2px solid rgba(26,138,48,0.45);display:flex;align-items:center;justify-content:center;font-size:0.65rem;font-weight:700;color:#1a8a30;font-family:var(--sans);">✓</div>
+            <div style="width:22px;height:2px;background:rgba(26,138,48,0.4);"></div>
+            <div style="width:34px;height:34px;border-radius:50%;background:#fff;border:2px solid #1a8a30;display:flex;align-items:center;justify-content:center;font-size:0.65rem;font-weight:700;color:#1a8a30;font-family:var(--sans);box-shadow:0 0 0 4px rgba(26,138,48,0.1);">3</div>
+            <div style="width:22px;height:2px;background:rgba(30,140,30,0.18);"></div>
+            <div style="width:34px;height:34px;border-radius:50%;background:transparent;border:2px solid rgba(30,120,30,0.2);display:flex;align-items:center;justify-content:center;font-size:0.65rem;color:rgba(30,100,30,0.4);font-family:var(--sans);">4</div>
+          </div>
+        </div>
+        <div class="next-cs-info">
+          <div class="next-cs-tags">
+            <span class="next-cs-tag tag-domain" style="background:#edfaf3;color:#1a7a40;">Growth</span>
+            <span class="next-cs-tag tag-type">Automation</span>
+          </div>
+          <div class="next-cs-title">Automating HeyCoach's Onboarding Flow</div>
+          <div class="next-cs-desc">Replaced 45–60 min manual sales calls with a fully self-serve journey — self-screening, personalised offers, and payment without sales intervention.</div>
+          <div class="next-cs-cta">Read case study <span style="transition:transform 0.18s;display:inline-block;">→</span></div>
+        </div>
+      </a>
+    </div>
+
+  </div><!-- end page -->
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="wrap">
+      <span class="section-label">Get in touch</span>
+      <div class="contact-text">
+        <h2>Let's build something<br><em>worth using.</em></h2>
+        <p class="contact-sub">
+          Open to PM, Product Designer, and Product Analyst roles at product companies and fintechs.
+        </p>
+        <div class="contact-links" style="margin-top: 2.5rem;">
+          <a href="mailto:kanishkasingh7913@gmail.com" class="clink primary">Email me</a>
+          <a href="https://www.linkedin.com/in/kanishkasingh7913/" target="_blank" class="clink">LinkedIn ↗</a>
+          <a href="https://www.behance.net/kanishkasingh6/projects" target="_blank" class="clink">Behance ↗</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-wrap">
+      <div class="footer-bottom">
+        <p>Vibecoded with love</p>
+        <p>Copyright © 2026 Kanishka Singh, All right reserved</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ZOOM OVERLAY -->
+  <div id="zoom-overlay"></div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const overlay = document.getElementById('zoom-overlay');
+      const images = document.querySelectorAll('.cs-hero img, .cs-section img, .screen-body img');
+      
+      images.forEach(img => {
+        img.classList.add('zoomable-img');
+        img.addEventListener('click', () => {
+          overlay.innerHTML = '';
+          const clone = img.cloneNode(true);
+          clone.removeAttribute('style');
+          clone.classList.remove('zoomable-img');
+          overlay.appendChild(clone);
+          overlay.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        });
+      });
+
+      overlay.addEventListener('click', () => {
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+        setTimeout(() => {
+          if (!overlay.classList.contains('active')) overlay.innerHTML = '';
+        }, 300);
+      });
+    });
+  </script>
+</body>
+</html>
